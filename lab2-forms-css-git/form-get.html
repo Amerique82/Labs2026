@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with GET method</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>HTML Form - GET Method</h1>
+
+        <p>
+            The <strong>GET</strong> method sends form data as URL parameters.
+            You can see the values in the browser address bar after submitting.
+            Example: <code>form-get.html?name=Amerique&email=a@test.com</code>
+        </p>
+
+        <form action="form-get.html" method="GET">
+
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" placeholder="Write something..."></textarea>
+            </div>
+
+            <button type="submit">Submit (GET)</button>
+
+        </form>
+
+        <div class="tip">
+            <strong>Developer Tools tip:</strong> After submitting, open DevTools (F12 or Cmd+Option+I),
+            go to the <em>Network</em> tab, and look at the request. Notice the parameters appear in the URL.
+        </div>
+
+        <p><a href="form-post.html">Try the POST form instead →</a></p>
+    </div>
+
+</body>
+</html>
