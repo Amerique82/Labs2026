@@ -4,34 +4,30 @@ class ProgrammeModel {
     constructor() {}
 
     get(id, callback) {
-        if (id === null) {
-            return db.query('SELECT * FROM programmes', callback);
-        }
-        return db.query('SELECT * FROM programmes WHERE id = ?', [id], callback);
+        if (id === null) return db.query('SELECT * FROM Programmes', callback);
+        return db.query('SELECT * FROM Programmes WHERE id = ?', [id], callback);
     }
 
-    // Get all modules for a programme (many-to-many)
+    // Get all modules for a programme (many-to-many via Programme_Modules)
     getProgrammingLanguages(programmeId, callback) {
         const sql = `
-            SELECT modules.*
-            FROM modules
-            JOIN programme_module ON modules.id = programme_module.module_id
-            WHERE programme_module.programme_id = ?
+            SELECT Modules.*
+            FROM Modules
+            JOIN Programme_Modules ON Modules.code = Programme_Modules.module
+            WHERE Programme_Modules.programme = ?
         `;
         return db.query(sql, [programmeId], callback);
     }
 
     // Get all students on a programme
     getStudents(programmeId, callback) {
-        return db.query('SELECT * FROM students WHERE programme_id = ?', [programmeId], callback);
-    }
-
-    insert(programme, callback) {
-        return db.query('INSERT INTO programmes SET ?', programme, callback);
-    }
-
-    remove(id, callback) {
-        return db.query('DELETE FROM programmes WHERE id = ?', [id], callback);
+        const sql = `
+            SELECT Students.*
+            FROM Students
+            JOIN Student_Programme ON Students.id = Student_Programme.id
+            WHERE Student_Programme.programme = ?
+        `;
+        return db.query(sql, [programmeId], callback);
     }
 }
 

@@ -1,4 +1,4 @@
-// Run once: node addtable.js
+// Run once: node addtable.js  (same schema as lab 9)
 const db = require('./db');
 
 const queries = [

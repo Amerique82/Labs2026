@@ -5,14 +5,14 @@ block content
     .col-md-6
       form(action='/students/add' method='POST')
         .form-group
-          label Name
+          label Student ID
+          input.form-control(type='number' name='id' placeholder='e.g. 201' required)
+        .form-group
+          label Full Name
           input.form-control(type='text' name='name' placeholder='Enter name' required)
         .form-group
-          label Email
-          input.form-control(type='email' name='email' placeholder='Enter email')
-        .form-group
           label Programme
-          select.form-control(name='programme_id')
+          select.form-control(name='programme')
             option(value='') -- No programme --
             each p in programmes
               option(value=p.id)= p.name

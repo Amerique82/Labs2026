@@ -6,7 +6,7 @@ block content
       form(action=`/student/${student.id}/edit` method='POST')
         .form-group
           label Change Programme
-          select.form-control(name='programme_id')
+          select.form-control(name='programme')
             option(value='') -- No programme --
             each p in programmes
               option(value=p.id selected=(p.id == student.programme_id))= p.name

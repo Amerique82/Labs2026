@@ -46,9 +46,9 @@ app.get('/students/add', (req, res) => {
 
 // POST /students/add — save new student to database
 app.post('/students/add', (req, res) => {
-    const { name, email, programme_id } = req.body;
+    const { id, name, programme } = req.body;
     const model = new StudentModel();
-    model.insert({ name, email, programme_id: programme_id || null }, (err) => {
+    model.insert({ id, name, programme: programme || null }, (err) => {
         if (err) return res.status(500).send(err.message);
         res.redirect('/students');
     });
@@ -74,9 +74,9 @@ app.get('/student/:id/edit', (req, res) => {
 
 // POST /student/:id/edit — update student's programme in database
 app.post('/student/:id/edit', (req, res) => {
-    const { programme_id } = req.body;
+    const { programme } = req.body;
     const model = new StudentModel();
-    model.updateById(req.params.id, { programme_id }, (err) => {
+    model.updateById(req.params.id, programme, (err) => {
         if (err) return res.status(500).send(err.message);
         res.redirect(`/student/${req.params.id}`);
     });
