@@ -1,0 +1,20 @@
+extends layout
+block content
+  h1= student.name
+  .card.mb-3
+    .card-body
+      p
+        strong Email:
+        |  #{student.email}
+      p
+        strong Programme:
+        |  #{student.programme_name || 'None'} (#{student.programme_code || 'N/A'})
+  h3 Modules on this programme
+  if modules.length === 0
+    .alert.alert-warning No modules found.
+  else
+    ul.list-group
+      each mod in modules
+        li.list-group-item #{mod.code} — #{mod.name}
+  .mt-3
+    a.btn.btn-secondary(href='/students') ← Back

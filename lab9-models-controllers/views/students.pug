@@ -1,0 +1,22 @@
+extends layout
+block content
+  h1= title
+  table.table.table-striped.table-bordered
+    thead.thead-dark
+      tr
+        th ID
+        th Name
+        th Email
+        th Programme
+        th Actions
+    tbody
+      each s in students
+        tr
+          td= s.id
+          td= s.name
+          td= s.email
+          td= s.programme_name || 'None'
+          td
+            a.btn.btn-sm.btn-info.mr-1(href=`/student/${s.id}`) View
+            form(action=`/student/${s.id}/delete` method='POST' style='display:inline')
+              button.btn.btn-sm.btn-danger(type='submit' onclick='return confirm("Delete?")') Delete

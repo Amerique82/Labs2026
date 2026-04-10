@@ -1,0 +1,12 @@
+{
+  "name": "lab9-models-controllers",
+  "version": "1.0.0",
+  "description": "Lab 9 - Models and Controllers with OOP and many-to-many relationships",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0",
+    "pug": "^3.0.2"
+  }
+}

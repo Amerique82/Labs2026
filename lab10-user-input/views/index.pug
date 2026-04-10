@@ -1,0 +1,18 @@
+extends layout
+block content
+  h1= title
+  p.lead Full CRUD via web forms — add students, change their programme, delete them.
+  .row.mt-4
+    .col-md-6
+      .card.mb-3
+        .card-body
+          h5.card-title View Students
+          a.btn.btn-primary(href='/students') Go to Students
+    .col-md-6
+      .card.mb-3
+        .card-body
+          h5.card-title Add a Student
+          a.btn.btn-success(href='/students/add') Add Student
+  .alert.alert-info.mt-2
+    strong New in Lab 10:
+    |  Students can be added via a form. Their programme can be changed with an edit form. Uses model.insert() and model.updateById().

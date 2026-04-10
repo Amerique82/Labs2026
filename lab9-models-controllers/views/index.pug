@@ -1,0 +1,18 @@
+extends layout
+block content
+  h1= title
+  p.lead Models and Controllers with many-to-many relationships.
+  .row.mt-4
+    .col-md-4
+      .card.mb-3
+        .card-body
+          h5.card-title Students
+          a.btn.btn-primary(href='/students') View All
+    .col-md-4
+      .card.mb-3
+        .card-body
+          h5.card-title Programmes
+          a.btn.btn-info(href='/programmes') View All
+  .alert.alert-info.mt-2
+    strong New in Lab 9:
+    |  Students have a programme_id. Each programme has many modules (many-to-many via programme_module table). The Student model uses JOIN to get the programme name directly.

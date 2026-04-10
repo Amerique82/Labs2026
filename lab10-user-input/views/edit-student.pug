@@ -1,0 +1,15 @@
+extends layout
+block content
+  h1 Edit: #{student.name}
+  .row.justify-content-center
+    .col-md-6
+      form(action=`/student/${student.id}/edit` method='POST')
+        .form-group
+          label Change Programme
+          select.form-control(name='programme_id')
+            option(value='') -- No programme --
+            each p in programmes
+              option(value=p.id selected=(p.id == student.programme_id))= p.name
+        button.btn.btn-warning.btn-block(type='submit') Update Programme
+      .mt-3
+        a.btn.btn-secondary(href=`/student/${student.id}`) ← Cancel

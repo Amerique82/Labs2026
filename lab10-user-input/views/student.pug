@@ -1,0 +1,14 @@
+extends layout
+block content
+  h1= student.name
+  .card.mb-3
+    .card-body
+      p
+        strong Email:
+        |  #{student.email}
+      p
+        strong Programme:
+        |  #{student.programme_name || 'None'}
+  .mt-2
+    a.btn.btn-warning.mr-2(href=`/student/${student.id}/edit`) Change Programme
+    a.btn.btn-secondary(href='/students') ← Back

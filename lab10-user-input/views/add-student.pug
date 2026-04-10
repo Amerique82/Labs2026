@@ -1,0 +1,21 @@
+extends layout
+block content
+  h1= title
+  .row.justify-content-center
+    .col-md-6
+      form(action='/students/add' method='POST')
+        .form-group
+          label Name
+          input.form-control(type='text' name='name' placeholder='Enter name' required)
+        .form-group
+          label Email
+          input.form-control(type='email' name='email' placeholder='Enter email')
+        .form-group
+          label Programme
+          select.form-control(name='programme_id')
+            option(value='') -- No programme --
+            each p in programmes
+              option(value=p.id)= p.name
+        button.btn.btn-success.btn-block(type='submit') Add Student
+      .mt-3
+        a.btn.btn-secondary(href='/students') ← Cancel

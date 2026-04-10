@@ -1,0 +1,18 @@
+extends layout
+block content
+  h1= title
+  table.table.table-striped.table-bordered
+    thead.thead-dark
+      tr
+        th ID
+        th Code
+        th Name
+        th
+    tbody
+      each p in programmes
+        tr
+          td= p.id
+          td= p.code
+          td= p.name
+          td
+            a.btn.btn-sm.btn-info(href=`/programme/${p.id}`) View
