@@ -1,0 +1,13 @@
+extends layout
+block content
+  h1 Dashboard
+  .alert.alert-success
+    strong Logged in as:
+    |  #{user.email}
+  p This is a protected page. Try opening it in an incognito window — you will be redirected to login.
+  .card.mt-3
+    .card-body
+      h5 Session data
+      pre= JSON.stringify(user, null, 2)
+  .mt-3
+    a.btn.btn-secondary(href='/') ← Home

@@ -1,0 +1,25 @@
+extends layout
+block content
+  .row.justify-content-center.mt-5
+    .col-md-5
+      .card
+        .card-header.bg-success.text-white
+          h4.mb-0 Register
+        .card-body
+          if error
+            .alert.alert-danger= error
+          form(action='/register' method='POST')
+            .form-group
+              label Email address
+              input.form-control(type='email' name='email' placeholder='Enter email' required)
+            .form-group
+              label Password
+              input.form-control(type='password' name='password' placeholder='Create password' required)
+            .form-group
+              label Confirm Password
+              input.form-control(type='password' name='confirm' placeholder='Confirm password' required)
+            button.btn.btn-success.btn-block(type='submit') Register
+          hr
+          p.text-center.mb-0
+            | Already have an account?
+            a(href='/login')  Login here
