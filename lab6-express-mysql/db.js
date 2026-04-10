@@ -1,0 +1,19 @@
+// Database connection configuration
+const mysql = require('mysql2');
+
+const connection = mysql.createConnection({
+    host:     process.env.DB_HOST     || '127.0.0.1',
+    user:     process.env.DB_USER     || 'lab6user',
+    password: process.env.DB_PASSWORD || 'lab6password',
+    database: process.env.DB_NAME     || 'lab6db'
+});
+
+connection.connect((err) => {
+    if (err) {
+        console.error('Error connecting to MySQL:', err.message);
+        return;
+    }
+    console.log('Connected to MySQL database.');
+});
+
+module.exports = connection;

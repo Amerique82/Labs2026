@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: lab6_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: lab6db
+      MYSQL_USER: lab6user
+      MYSQL_PASSWORD: lab6password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  app:
+    build: .
+    container_name: lab6_app
+    restart: always
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: lab6user
+      DB_PASSWORD: lab6password
+      DB_NAME: lab6db
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  db_data:
