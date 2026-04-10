@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form GET - Bootstrap</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.html">← Lab 3</a>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <h2>Form - GET Method</h2>
+                <p class="text-muted">Data is sent in the URL. Check the address bar after submitting.</p>
+
+                <form action="form-get.html" method="GET">
+
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Submit with GET</button>
+                </form>
+
+                <div class="alert alert-warning mt-4">
+                    <strong>After submitting:</strong> look at the URL — you will see
+                    <code>?name=...&amp;email=...&amp;message=...</code>
+                    appended to the address. Open DevTools → Network tab to inspect.
+                </div>
+
+                <a href="form-post.html" class="btn btn-outline-secondary mt-2">Try POST instead →</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
