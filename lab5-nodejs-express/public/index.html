@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 5 - Node.js + Express</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; }
+        h1 { color: #2c3e50; }
+        a { display: block; margin: 8px 0; color: #16a085; }
+        .box { background: #f4f4f4; padding: 16px; border-radius: 6px; margin-top: 20px; }
+        code { background: #eee; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+        button { padding: 8px 16px; background: #2c3e50; color: white; border: none;
+                 border-radius: 4px; cursor: pointer; margin-top: 10px; }
+        button:hover { background: #16a085; }
+        pre { background: #2c3e50; color: #a9dfbf; padding: 14px; border-radius: 6px;
+              font-size: 13px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+
+    <h1>Lab 5 - Node.js + Express Server</h1>
+    <p>This page is served as a <strong>static file</strong> by Express from the <code>public/</code> folder.</p>
+
+    <h2>Available routes</h2>
+    <a href="/">/  — Hello World</a>
+    <a href="/goodbye">/goodbye  — Goodbye message</a>
+    <a href="/user/Amerique">/user/Amerique  — Dynamic route</a>
+    <a href="/api/students">/api/students  — REST API: all students (JSON)</a>
+    <a href="/api/students/1">/api/students/1  — REST API: student by id</a>
+
+    <h2>Test the REST API</h2>
+    <button onclick="getStudents()">GET all students</button>
+    <button onclick="addStudent()">POST new student</button>
+    <pre id="api-output">Click a button to see the API response here...</pre>
+
+    <div class="box">
+        <strong>Key concept:</strong> The browser can only do GET requests by clicking links.
+        To test POST/DELETE you need JavaScript (fetch) or a tool like Postman.
+    </div>
+
+    <script>
+        async function getStudents() {
+            const res = await fetch('/api/students');
+            const data = await res.json();
+            document.getElementById('api-output').textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function addStudent() {
+            const res = await fetch('/api/students', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: 'Maria Garcia', course: 'Software Development' })
+            });
+            const data = await res.json();
+            document.getElementById('api-output').textContent = JSON.stringify(data, null, 2);
+        }
+    </script>
+
+</body>
+</html>
