@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h1= title
+  p All students from the MySQL database:
+
+  if students.length === 0
+    .alert.alert-warning No students found in the database.
+  else
+    table.table.table-striped.table-bordered
+      thead.thead-dark
+        tr
+          th ID
+          th Name
+          th Course
+          th Email
+          th Actions
+      tbody
+        each student in students
+          tr
+            td= student.id
+            td= student.name
+            td= student.course
+            td= student.email
+            td
+              a.btn.btn-sm.btn-info(href=`/students/${student.id}`) View
+
+  a.btn.btn-success.mt-3(href='/students/add') + Add New Student

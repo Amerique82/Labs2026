@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  p.lead Pug is a template engine for Node.js. Instead of writing raw HTML, you write Pug and Express renders it into HTML pages with real data from the database.
+
+  .row.mt-4
+    .col-md-6
+      .card.mb-3
+        .card-body
+          h5.card-title View Students
+          p.card-text See all students stored in the MySQL database.
+          a.btn.btn-primary(href='/students') Go to Students
+
+    .col-md-6
+      .card.mb-3
+        .card-body
+          h5.card-title Add a Student
+          p.card-text Add a new student to the database using a form.
+          a.btn.btn-success(href='/students/add') Add Student
+
+  .alert.alert-info.mt-3
+    strong Key concept:
+    |  In Pug, indentation defines the HTML structure. No closing tags needed!
+    |  Use #{variable} to output data and each item in list for loops.
