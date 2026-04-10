@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Page Structure</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 40px;
+        }
+        nav {
+            background-color: #16a085;
+            padding: 10px 40px;
+        }
+        nav a {
+            color: white;
+            margin-right: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 40px;
+        }
+        article {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+        aside {
+            background-color: #eaf0fb;
+            padding: 15px 20px;
+            border-left: 4px solid #2980b9;
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>My Website</h1>
+        <p>Software Development — Roehampton University</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="headings.html">Headings</a>
+        <a href="hyperlinks.html">Links</a>
+        <a href="tables.html">Tables</a>
+        <a href="forms.html">Forms</a>
+    </nav>
+
+    <main>
+        <h2>HTML5 Semantic Structure</h2>
+        <p>This page demonstrates the use of semantic HTML5 elements to organise content meaningfully.</p>
+
+        <article>
+            <h3>What are semantic elements?</h3>
+            <p>Semantic elements clearly describe their meaning to both the browser and the developer.
+               Examples include: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>,
+               <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>,
+               and <code>&lt;footer&gt;</code>.</p>
+        </article>
+
+        <article>
+            <h3>Why use semantic HTML?</h3>
+            <p>Using semantic elements makes your code easier to read, improves accessibility for
+               screen readers, and helps search engines understand your content better.</p>
+        </article>
+
+        <aside>
+            <strong>Tip:</strong> Always prefer semantic elements over generic <code>&lt;div&gt;</code>
+            tags when the element has a clear role on the page.
+        </aside>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Amerique — Software Development Lab 1</p>
+    </footer>
+
+</body>
+</html>
