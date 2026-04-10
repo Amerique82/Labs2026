@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 4 - JavaScript</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Lab 4 - Fundamentals of JavaScript</h1>
+        <nav>
+            <a href="dom.html">DOM Manipulation</a>
+            <a href="constructs.html">JS Constructs</a>
+            <a href="homework.html">Homework</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>What is JavaScript?</h2>
+        <p>
+            JavaScript is a programming language that runs in the browser.
+            It makes web pages interactive — it can respond to user actions,
+            change HTML content, and update styles without reloading the page.
+        </p>
+
+        <h2>Your first JavaScript</h2>
+        <p>Open DevTools (Cmd+Option+I) and go to the <strong>Console</strong> tab to see the output below.</p>
+
+        <button onclick="sayHello()">Click me for an alert</button>
+        <button onclick="logToConsole()">Click me to log to console</button>
+
+        <p id="output" class="output-box">Output will appear here...</p>
+    </main>
+
+    <script>
+        // console.log prints to the browser DevTools console
+        console.log("JavaScript is running!");
+
+        function sayHello() {
+            alert("Hello from JavaScript!");
+        }
+
+        function logToConsole() {
+            console.log("Button was clicked!");
+            // We can also change HTML content using the DOM
+            document.getElementById("output").innerHTML = "You clicked the console button! Check DevTools.";
+        }
+    </script>
+
+</body>
+</html>

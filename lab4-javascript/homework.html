@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework - Colour Changer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Homework - More JavaScript</h1>
+        <nav><a href="index.html">← Back</a></nav>
+    </header>
+
+    <main>
+        <h2>Colour Changer</h2>
+        <p>Click the buttons below to change the colour of the paragraph text.</p>
+
+        <p id="coloured-text">
+            This is the paragraph whose colour will change when you click the buttons.
+        </p>
+
+        <div class="button-group">
+            <button onclick="changeToRed()">Turn Red</button>
+            <button onclick="changeToBlue()">Turn Blue</button>
+        </div>
+    </main>
+
+    <script>
+        // Locate the HTML element in the DOM using getElementById
+        // then set its style.color property
+
+        function changeToRed() {
+            let element = document.getElementById("coloured-text");
+            element.style.color = "red";
+        }
+
+        function changeToBlue() {
+            let element = document.getElementById("coloured-text");
+            element.style.color = "blue";
+        }
+    </script>
+
+</body>
+</html>

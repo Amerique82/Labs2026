@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>DOM Manipulation</h1>
+        <nav><a href="index.html">← Back</a></nav>
+    </header>
+
+    <main>
+        <h2>Selecting elements</h2>
+        <p>JavaScript finds HTML elements using the DOM (Document Object Model).</p>
+
+        <p id="my-paragraph">This paragraph can be changed by JavaScript.</p>
+
+        <div class="button-group">
+            <button onclick="changeText()">Change Text</button>
+            <button onclick="changeColour()">Change Colour</button>
+            <button onclick="resetAll()">Reset</button>
+        </div>
+
+        <h2>querySelector</h2>
+        <p class="target">This is a paragraph selected by class.</p>
+        <p class="target">This is another paragraph with the same class.</p>
+
+        <div class="button-group">
+            <button onclick="selectOne()">querySelector (first only)</button>
+            <button onclick="selectAll()">querySelectorAll (all)</button>
+        </div>
+
+        <p id="result" class="output-box"></p>
+    </main>
+
+    <script>
+        // getElementById - selects one element by its id
+        function changeText() {
+            document.getElementById("my-paragraph").innerHTML = "Text changed by JavaScript!";
+        }
+
+        function changeColour() {
+            document.getElementById("my-paragraph").style.color = "purple";
+            document.getElementById("my-paragraph").style.fontWeight = "bold";
+        }
+
+        function resetAll() {
+            let p = document.getElementById("my-paragraph");
+            p.innerHTML = "This paragraph can be changed by JavaScript.";
+            p.style.color = "";
+            p.style.fontWeight = "";
+
+            // Reset all .target paragraphs
+            let targets = document.querySelectorAll(".target");
+            targets.forEach(function(el) {
+                el.style.backgroundColor = "";
+            });
+
+            document.getElementById("result").innerHTML = "";
+        }
+
+        // querySelector - selects the FIRST matching element
+        function selectOne() {
+            let first = document.querySelector(".target");
+            first.style.backgroundColor = "#f9e79f";
+            document.getElementById("result").innerHTML = "querySelector selected only the FIRST .target element.";
+        }
+
+        // querySelectorAll - selects ALL matching elements
+        function selectAll() {
+            let all = document.querySelectorAll(".target");
+            all.forEach(function(el) {
+                el.style.backgroundColor = "#a9dfbf";
+            });
+            document.getElementById("result").innerHTML = "querySelectorAll selected ALL " + all.length + " .target elements.";
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Constructs</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>JavaScript Programming Constructs</h1>
+        <nav><a href="index.html">← Back</a></nav>
+    </header>
+
+    <main>
+
+        <!-- VARIABLES -->
+        <section>
+            <h2>Variables</h2>
+            <p><code>var</code> — old way (avoid), <code>let</code> — can change, <code>const</code> — cannot change.</p>
+            <button onclick="showVariables()">Run Variables example</button>
+            <p id="var-output" class="output-box"></p>
+        </section>
+
+        <!-- CONDITIONALS -->
+        <section>
+            <h2>Conditionals (if / else)</h2>
+            <input type="number" id="age-input" placeholder="Enter your age">
+            <button onclick="checkAge()">Check</button>
+            <p id="age-output" class="output-box"></p>
+        </section>
+
+        <!-- FOR LOOP -->
+        <section>
+            <h2>For Loop</h2>
+            <button onclick="runForLoop()">Run for loop (1 to 5)</button>
+            <p id="for-output" class="output-box"></p>
+        </section>
+
+        <!-- WHILE LOOP -->
+        <section>
+            <h2>While Loop</h2>
+            <button onclick="runWhileLoop()">Run while loop</button>
+            <p id="while-output" class="output-box"></p>
+        </section>
+
+        <!-- FUNCTIONS -->
+        <section>
+            <h2>Functions</h2>
+            <input type="text" id="name-input" placeholder="Enter your name">
+            <button onclick="greet()">Greet me</button>
+            <p id="greet-output" class="output-box"></p>
+        </section>
+
+        <!-- ARRAYS -->
+        <section>
+            <h2>Arrays</h2>
+            <button onclick="showArrays()">Run Arrays example</button>
+            <p id="array-output" class="output-box"></p>
+        </section>
+
+        <!-- OBJECTS -->
+        <section>
+            <h2>Objects</h2>
+            <button onclick="showObjects()">Run Objects example</button>
+            <p id="object-output" class="output-box"></p>
+        </section>
+
+    </main>
+
+    <script>
+
+        // --- VARIABLES ---
+        function showVariables() {
+            let name = "Amerique";       // can be reassigned
+            const course = "Software Development"; // cannot be reassigned
+            let year = 2026;
+
+            document.getElementById("var-output").innerHTML =
+                "name: " + name + " | course: " + course + " | year: " + year;
+        }
+
+        // --- CONDITIONALS ---
+        function checkAge() {
+            let age = parseInt(document.getElementById("age-input").value);
+            let result;
+
+            if (age >= 18) {
+                result = "You are an adult (" + age + " years old).";
+            } else if (age > 0) {
+                result = "You are a minor (" + age + " years old).";
+            } else {
+                result = "Please enter a valid age.";
+            }
+
+            document.getElementById("age-output").innerHTML = result;
+        }
+
+        // --- FOR LOOP ---
+        function runForLoop() {
+            let output = "";
+            for (let i = 1; i <= 5; i++) {
+                output += "Iteration " + i + " &nbsp;";
+            }
+            document.getElementById("for-output").innerHTML = output;
+        }
+
+        // --- WHILE LOOP ---
+        function runWhileLoop() {
+            let count = 0;
+            let output = "";
+            while (count < 5) {
+                count++;
+                output += "Count: " + count + " &nbsp;";
+            }
+            document.getElementById("while-output").innerHTML = output;
+        }
+
+        // --- FUNCTIONS ---
+        function greet() {
+            let name = document.getElementById("name-input").value;
+            if (name === "") name = "stranger";
+            let message = buildGreeting(name);
+            document.getElementById("greet-output").innerHTML = message;
+        }
+
+        function buildGreeting(name) {
+            return "Hello, " + name + "! Welcome to JavaScript.";
+        }
+
+        // --- ARRAYS ---
+        function showArrays() {
+            let fruits = ["apple", "banana", "mango", "kiwi"];
+            let output = "Array: [" + fruits.join(", ") + "]<br>";
+            output += "First item: " + fruits[0] + "<br>";
+            output += "Length: " + fruits.length + "<br>";
+
+            fruits.push("pineapple");
+            output += "After push: [" + fruits.join(", ") + "]";
+
+            document.getElementById("array-output").innerHTML = output;
+        }
+
+        // --- OBJECTS ---
+        function showObjects() {
+            let student = {
+                name: "Amerique",
+                course: "Software Development",
+                year: 2,
+                isEnrolled: true
+            };
+
+            let output = "Name: " + student.name + "<br>";
+            output += "Course: " + student.course + "<br>";
+            output += "Year: " + student.year + "<br>";
+            output += "Enrolled: " + student.isEnrolled;
+
+            document.getElementById("object-output").innerHTML = output;
+        }
+
+    </script>
+
+</body>
+</html>
