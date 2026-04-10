@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  h1= title
+
+  if students.length === 0
+    .alert.alert-warning No students found.
+  else
+    table.table.table-striped.table-bordered
+      thead.thead-dark
+        tr
+          th ID
+          th Name
+          th Course
+          th Email
+          th Actions
+      tbody
+        each student in students
+          tr
+            td= student.id
+            td= student.name
+            td= student.course
+            td= student.email
+            td
+              a.btn.btn-sm.btn-info.mr-1(href=`/student/${student.id}`) View
+              form(action=`/student/${student.id}/delete` method='POST' style='display:inline')
+                button.btn.btn-sm.btn-danger(type='submit' onclick='return confirm("Delete this student?")') Delete
+
+  a.btn.btn-success.mt-3(href='/students/add') + Add New Student

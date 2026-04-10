@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  table.table.table-striped.table-bordered
+    thead.thead-dark
+      tr
+        th ID
+        th Code
+        th Name
+        th
+    tbody
+      each programme in programmes
+        tr
+          td= programme.id
+          td= programme.code
+          td= programme.name
+          td
+            a.btn.btn-sm.btn-info(href=`/programme/${programme.id}`) View Students

@@ -1,0 +1,14 @@
+{
+  "name": "lab8-oop-models",
+  "version": "1.0.0",
+  "description": "Lab 8 - MVC pattern with OOP Models, Express and MySQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0",
+    "pug": "^3.0.2"
+  }
+}

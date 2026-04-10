@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= programme.name
+  p
+    strong Code:
+    |  #{programme.code}
+
+  h2.mt-4 Students on this programme
+  if students.length === 0
+    .alert.alert-warning No students enrolled.
+  else
+    table.table.table-striped
+      thead.thead-dark
+        tr
+          th Name
+          th Email
+      tbody
+        each student in students
+          tr
+            td= student.name
+            td= student.email
+
+  .mt-3
+    a.btn.btn-secondary(href='/programmes') ← Back to Programmes

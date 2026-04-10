@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1= title
+  p.lead This lab uses the MVC pattern. Database queries are in Model classes, not in the routes.
+
+  .row.mt-4
+    .col-md-4
+      .card.mb-3
+        .card-body
+          h5.card-title Model
+          p.card-text Classes that handle all database queries (StudentModel, ProgrammeModel).
+    .col-md-4
+      .card.mb-3
+        .card-body
+          h5.card-title View
+          p.card-text Pug templates that render the HTML shown to the user.
+    .col-md-4
+      .card.mb-3
+        .card-body
+          h5.card-title Controller
+          p.card-text Express routes that connect the model and the view.
+
+  .alert.alert-info.mt-2
+    strong Key difference from Lab 7:
+    |  Routes no longer contain SQL. They call model.get(), model.insert(), model.remove() instead.

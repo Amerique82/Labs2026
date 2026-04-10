@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1= title
+  .row.justify-content-center
+    .col-md-6
+      form(action='/students/add' method='POST')
+        .form-group
+          label Name
+          input.form-control(type='text' name='name' placeholder='Enter name' required)
+        .form-group
+          label Course
+          select.form-control(name='course')
+            option(value='Software Development') Software Development
+            option(value='Computer Science') Computer Science
+            option(value='Information Technology') Information Technology
+        .form-group
+          label Email
+          input.form-control(type='email' name='email' placeholder='Enter email')
+        button.btn.btn-success.btn-block(type='submit') Add Student
+      .mt-3
+        a.btn.btn-secondary(href='/students') ← Back

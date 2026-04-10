@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= student.name
+  .card
+    .card-body
+      p
+        strong ID:
+        |  #{student.id}
+      p
+        strong Course:
+        |  #{student.course}
+      p
+        strong Email:
+        |  #{student.email}
+  .mt-3
+    a.btn.btn-secondary(href='/students') ← Back to Students
