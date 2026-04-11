@@ -20,7 +20,7 @@
     p.subtitle { color: #8b949e; margin-bottom: 2.5rem; }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1rem;
       width: 100%;
       max-width: 900px;
@@ -29,15 +29,18 @@
       background: #161b22;
       border: 1px solid #30363d;
       border-radius: 10px;
-      padding: 1.25rem 1.5rem;
+      overflow: hidden;
       text-decoration: none;
       color: inherit;
       transition: border-color 0.2s, transform 0.15s;
+      display: flex;
+      flex-direction: column;
     }
-    .card:hover {
+    a.card:hover {
       border-color: #58a6ff;
       transform: translateY(-2px);
     }
+    .card-body { padding: 1.25rem 1.5rem; }
     .card .label {
       font-size: 0.75rem;
       text-transform: uppercase;
@@ -57,6 +60,92 @@
       color: #8b949e;
     }
     .badge.static { background: #0d419d33; color: #58a6ff; }
+
+    /* ── Mini preview thumbnails ── */
+    .preview {
+      background: #f6f8fa;
+      height: 130px;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .preview .bar {
+      height: 20px;
+      background: #24292f;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      gap: 5px;
+    }
+    .preview .bar span {
+      width: 8px; height: 8px; border-radius: 50%;
+      display: inline-block;
+    }
+    .preview .bar .r { background: #ff5f57; }
+    .preview .bar .y { background: #febc2e; }
+    .preview .bar .g { background: #28c840; }
+    .preview .content { padding: 8px 10px; font-size: 9px; color: #24292f; }
+
+    /* Lab 5 — Express routes */
+    .p5 .content { font-family: monospace; }
+    .p5 .route { margin: 3px 0; }
+    .p5 .method { display: inline-block; padding: 1px 4px; border-radius: 2px; font-weight: bold; margin-right: 4px; }
+    .p5 .get { background: #ddfbe7; color: #1a7f37; }
+    .p5 .post { background: #ddf4ff; color: #0969da; }
+    .p5 .path { color: #6e40c9; }
+    .p5 .ok { color: #8b949e; font-size: 8px; }
+
+    /* Lab 6 — MySQL table */
+    .p6 .content { padding: 6px; }
+    .p6 table { width: 100%; border-collapse: collapse; font-size: 8px; }
+    .p6 th { background: #eaeef2; padding: 3px 5px; text-align: left; color: #57606a; border-bottom: 1px solid #d0d7de; }
+    .p6 td { padding: 3px 5px; border-bottom: 1px solid #eaeef2; color: #24292f; }
+    .p6 tr:nth-child(even) td { background: #f6f8fa; }
+
+    /* Lab 7 — Pug template */
+    .p7 .content { font-family: monospace; color: #24292f; }
+    .p7 .tag { color: #0550ae; }
+    .p7 .attr { color: #116329; }
+    .p7 .val { color: #0a3069; }
+    .p7 .txt { color: #24292f; }
+    .p7 .indent1 { margin-left: 12px; }
+    .p7 .indent2 { margin-left: 24px; }
+    .p7 .line { margin: 2px 0; }
+
+    /* Lab 8 — OOP class */
+    .p8 .content { font-family: monospace; background: #1e1e2e; color: #cdd6f4; height: 100%; }
+    .p8 .kw { color: #cba6f7; }
+    .p8 .cn { color: #89dceb; }
+    .p8 .fn { color: #89b4fa; }
+    .p8 .cm { color: #585b70; }
+    .p8 .line { margin: 1px 0; white-space: pre; }
+    .p8 .preview { background: #1e1e2e; }
+
+    /* Lab 9 — MVC routes */
+    .p9 .content { font-family: monospace; background: #1e1e2e; color: #cdd6f4; }
+    .p9 .kw { color: #cba6f7; }
+    .p9 .str { color: #a6e3a1; }
+    .p9 .fn { color: #89b4fa; }
+    .p9 .line { margin: 1px 0; white-space: pre; }
+    .p9 .preview { background: #1e1e2e; }
+
+    /* Lab 10 — Form validation */
+    .p10 .content { }
+    .p10 .field { margin: 4px 0; }
+    .p10 label { font-size: 8px; color: #57606a; display: block; margin-bottom: 1px; }
+    .p10 input { width: 100%; border: 1px solid #d0d7de; border-radius: 3px; padding: 2px 5px; font-size: 8px; color: #24292f; }
+    .p10 input.err { border-color: #cf222e; background: #fff8f8; }
+    .p10 .error-msg { color: #cf222e; font-size: 7px; margin-top: 1px; }
+    .p10 .btn { background: #0969da; color: #fff; border: none; border-radius: 4px; padding: 3px 10px; font-size: 8px; margin-top: 5px; cursor: pointer; }
+
+    /* Lab 11 — Login form */
+    .p11 .content { display: flex; justify-content: center; align-items: flex-start; padding-top: 10px; }
+    .p11 .login-box { background: #fff; border: 1px solid #d0d7de; border-radius: 6px; padding: 12px; width: 140px; }
+    .p11 .login-box h3 { text-align: center; font-size: 9px; color: #24292f; margin-bottom: 6px; }
+    .p11 .login-box label { font-size: 7px; color: #57606a; display: block; margin-bottom: 1px; }
+    .p11 .login-box input { width: 100%; border: 1px solid #d0d7de; border-radius: 3px; padding: 2px 4px; font-size: 7px; margin-bottom: 5px; }
+    .p11 .login-box .btn { width: 100%; background: #218bff; color: #fff; border: none; border-radius: 4px; padding: 3px; font-size: 8px; cursor: pointer; }
+    .p11 .lock { text-align: center; font-size: 18px; margin-bottom: 4px; }
   </style>
 </head>
 <body>
@@ -64,82 +153,200 @@
   <p class="subtitle">Web Development course labs — Amerique82</p>
 
   <div class="grid">
+
+    <!-- Labs 1-4: no preview, just card -->
     <a class="card" href="lab1-html/index.html">
-      <div class="label">Lab 1</div>
-      <h2>HTML Basics</h2>
-      <p>Headings, links, images, tables, forms, and semantic structure.</p>
-      <span class="badge static">HTML</span>
+      <div class="card-body">
+        <div class="label">Lab 1</div>
+        <h2>HTML Basics</h2>
+        <p>Headings, links, images, tables, forms, and semantic structure.</p>
+        <span class="badge static">HTML</span>
+      </div>
     </a>
 
     <a class="card" href="lab2-forms-css-git/index.html">
-      <div class="label">Lab 2</div>
-      <h2>Forms, CSS & Git</h2>
-      <p>Styled forms, GET vs POST, and version control intro.</p>
-      <span class="badge static">HTML · CSS</span>
+      <div class="card-body">
+        <div class="label">Lab 2</div>
+        <h2>Forms, CSS & Git</h2>
+        <p>Styled forms, GET vs POST, and version control intro.</p>
+        <span class="badge static">HTML · CSS</span>
+      </div>
     </a>
 
     <a class="card" href="lab3-bootstrap-git-branching/index.html">
-      <div class="label">Lab 3</div>
-      <h2>Bootstrap & Branching</h2>
-      <p>Responsive layouts with Bootstrap and Git branching workflow.</p>
-      <span class="badge static">Bootstrap · CSS</span>
+      <div class="card-body">
+        <div class="label">Lab 3</div>
+        <h2>Bootstrap & Branching</h2>
+        <p>Responsive layouts with Bootstrap and Git branching workflow.</p>
+        <span class="badge static">Bootstrap · CSS</span>
+      </div>
     </a>
 
     <a class="card" href="lab4-javascript/index.html">
-      <div class="label">Lab 4</div>
-      <h2>JavaScript</h2>
-      <p>DOM manipulation, events, and JS fundamentals.</p>
-      <span class="badge static">JS</span>
+      <div class="card-body">
+        <div class="label">Lab 4</div>
+        <h2>JavaScript</h2>
+        <p>DOM manipulation, events, and JS fundamentals.</p>
+        <span class="badge static">JS</span>
+      </div>
     </a>
 
-    <div class="card" style="opacity:0.5; cursor:default;">
-      <div class="label">Lab 5</div>
-      <h2>Node.js & Express</h2>
-      <p>Server-side routing and Express framework basics.</p>
-      <span class="badge">Node.js · Server</span>
+    <!-- Labs 5-11: with mini preview -->
+    <div class="card p5" style="opacity:0.75; cursor:default;">
+      <div class="preview p5">
+        <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <div class="content">
+          <div class="route"><span class="method get">GET</span><span class="path">/</span> <span class="ok">→ index()</span></div>
+          <div class="route"><span class="method get">GET</span><span class="path">/about</span> <span class="ok">→ about()</span></div>
+          <div class="route"><span class="method post">POST</span><span class="path">/contact</span> <span class="ok">→ send()</span></div>
+          <div class="route"><span class="method get">GET</span><span class="path">/users</span> <span class="ok">→ list()</span></div>
+          <div class="route"><span class="method post">POST</span><span class="path">/users</span> <span class="ok">→ create()</span></div>
+          <div style="margin-top:6px;color:#57606a;font-size:8px;">Listening on port 3000…</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="label">Lab 5</div>
+        <h2>Node.js & Express</h2>
+        <p>Server-side routing and Express framework basics.</p>
+        <span class="badge">Node.js · Server</span>
+      </div>
     </div>
 
-    <div class="card" style="opacity:0.5; cursor:default;">
-      <div class="label">Lab 6</div>
-      <h2>Express & MySQL</h2>
-      <p>Database integration with MySQL and Express.</p>
-      <span class="badge">Node.js · MySQL</span>
+    <div class="card p6" style="opacity:0.75; cursor:default;">
+      <div class="preview p6">
+        <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <div class="content">
+          <table>
+            <tr><th>id</th><th>name</th><th>email</th><th>role</th></tr>
+            <tr><td>1</td><td>Alice</td><td>alice@mail.com</td><td>admin</td></tr>
+            <tr><td>2</td><td>Bob</td><td>bob@mail.com</td><td>user</td></tr>
+            <tr><td>3</td><td>Carol</td><td>carol@mail.com</td><td>user</td></tr>
+            <tr><td>4</td><td>Dave</td><td>dave@mail.com</td><td>editor</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="label">Lab 6</div>
+        <h2>Express & MySQL</h2>
+        <p>Database integration with MySQL and Express.</p>
+        <span class="badge">Node.js · MySQL</span>
+      </div>
     </div>
 
-    <div class="card" style="opacity:0.5; cursor:default;">
-      <div class="label">Lab 7</div>
-      <h2>Pug Templates</h2>
-      <p>Server-side rendering with the Pug template engine.</p>
-      <span class="badge">Node.js · Pug</span>
+    <div class="card p7" style="opacity:0.75; cursor:default;">
+      <div class="preview p7">
+        <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <div class="content">
+          <div class="line"><span class="tag">doctype</span> html</div>
+          <div class="line"><span class="tag">html</span></div>
+          <div class="line indent1"><span class="tag">head</span></div>
+          <div class="line indent2"><span class="tag">title</span> <span class="txt">= title</span></div>
+          <div class="line indent1"><span class="tag">body</span></div>
+          <div class="line indent2"><span class="tag">h1</span> <span class="txt">Welcome, </span><span class="attr">#{user}</span></div>
+          <div class="line indent2"><span class="tag">each</span> <span class="attr">item</span> <span class="tag">in</span> <span class="val">items</span></div>
+          <div class="line" style="margin-left:36px"><span class="tag">li</span> <span class="txt">= item.name</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="label">Lab 7</div>
+        <h2>Pug Templates</h2>
+        <p>Server-side rendering with the Pug template engine.</p>
+        <span class="badge">Node.js · Pug</span>
+      </div>
     </div>
 
-    <div class="card" style="opacity:0.5; cursor:default;">
-      <div class="label">Lab 8</div>
-      <h2>OOP & Models</h2>
-      <p>Object-oriented patterns and data modeling.</p>
-      <span class="badge">Node.js · OOP</span>
+    <div class="card p8" style="opacity:0.75; cursor:default;">
+      <div class="preview" style="background:#1e1e2e;">
+        <div class="bar" style="background:#11111b;"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <div class="content" style="font-family:monospace;background:#1e1e2e;color:#cdd6f4;padding:6px 10px;">
+          <div class="line"><span style="color:#cba6f7">class</span> <span style="color:#89dceb">User</span> {</div>
+          <div class="line" style="margin-left:12px"><span style="color:#cba6f7">constructor</span>(name, email) {</div>
+          <div class="line" style="margin-left:24px"><span style="color:#cba6f7">this</span>.name = name;</div>
+          <div class="line" style="margin-left:24px"><span style="color:#cba6f7">this</span>.email = email;</div>
+          <div class="line" style="margin-left:12px">}</div>
+          <div class="line" style="margin-left:12px"><span style="color:#89b4fa">save</span>() { <span style="color:#585b70">/* insert DB */</span> }</div>
+          <div class="line">}</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="label">Lab 8</div>
+        <h2>OOP & Models</h2>
+        <p>Object-oriented patterns and data modeling.</p>
+        <span class="badge">Node.js · OOP</span>
+      </div>
     </div>
 
-    <div class="card" style="opacity:0.5; cursor:default;">
-      <div class="label">Lab 9</div>
-      <h2>Models & Controllers</h2>
-      <p>MVC architecture with controllers and database models.</p>
-      <span class="badge">Node.js · MVC</span>
+    <div class="card p9" style="opacity:0.75; cursor:default;">
+      <div class="preview" style="background:#1e1e2e;">
+        <div class="bar" style="background:#11111b;"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <div class="content" style="font-family:monospace;background:#1e1e2e;color:#cdd6f4;padding:6px 10px;">
+          <div class="line"><span style="color:#585b70">// routes/users.js</span></div>
+          <div class="line"><span style="color:#cba6f7">const</span> ctrl = require(<span style="color:#a6e3a1">'../controllers/user'</span>);</div>
+          <div class="line" style="margin-top:4px">router.<span style="color:#89b4fa">get</span>(<span style="color:#a6e3a1">'/'</span>, ctrl.index);</div>
+          <div class="line">router.<span style="color:#89b4fa">post</span>(<span style="color:#a6e3a1">'/'</span>, ctrl.create);</div>
+          <div class="line">router.<span style="color:#89b4fa">get</span>(<span style="color:#a6e3a1">'/:id'</span>, ctrl.show);</div>
+          <div class="line">router.<span style="color:#89b4fa">delete</span>(<span style="color:#a6e3a1">'/:id'</span>, ctrl.destroy);</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="label">Lab 9</div>
+        <h2>Models & Controllers</h2>
+        <p>MVC architecture with controllers and database models.</p>
+        <span class="badge">Node.js · MVC</span>
+      </div>
     </div>
 
-    <div class="card" style="opacity:0.5; cursor:default;">
-      <div class="label">Lab 10</div>
-      <h2>User Input</h2>
-      <p>Handling and validating user input server-side.</p>
-      <span class="badge">Node.js</span>
+    <div class="card p10" style="opacity:0.75; cursor:default;">
+      <div class="preview p10">
+        <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <div class="content">
+          <div class="field">
+            <label>Username</label>
+            <input type="text" value="john_doe" readonly>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input class="err" type="text" value="not-an-email" readonly>
+            <div class="error-msg">⚠ Enter a valid email address</div>
+          </div>
+          <div class="field">
+            <label>Age</label>
+            <input type="text" value="25" readonly>
+          </div>
+          <button class="btn">Submit</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="label">Lab 10</div>
+        <h2>User Input</h2>
+        <p>Handling and validating user input server-side.</p>
+        <span class="badge">Node.js</span>
+      </div>
     </div>
 
-    <div class="card" style="opacity:0.5; cursor:default;">
-      <div class="label">Lab 11</div>
-      <h2>Authentication</h2>
-      <p>Session-based auth and user login flow.</p>
-      <span class="badge">Node.js · Auth</span>
+    <div class="card p11" style="opacity:0.75; cursor:default;">
+      <div class="preview p11">
+        <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+        <div class="content">
+          <div class="login-box">
+            <div class="lock">🔒</div>
+            <h3>Sign in</h3>
+            <label>Username</label>
+            <input type="text" placeholder="your username" readonly>
+            <label>Password</label>
+            <input type="password" placeholder="••••••••" readonly>
+            <button class="btn">Sign in</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="label">Lab 11</div>
+        <h2>Authentication</h2>
+        <p>Session-based auth and user login flow.</p>
+        <span class="badge">Node.js · Auth</span>
+      </div>
     </div>
+
   </div>
 </body>
 </html>
