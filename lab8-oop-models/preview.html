@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 8 – OOP & Models · Preview</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0d1117; color: #e6edf3; min-height: 100vh; padding: 2rem 1.5rem; }
+    a.back { display: inline-flex; align-items: center; gap: 0.4rem; color: #58a6ff; text-decoration: none; font-size: 0.85rem; margin-bottom: 2rem; }
+    a.back:hover { text-decoration: underline; }
+    .header { margin-bottom: 2rem; }
+    .lab-num { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b949e; }
+    h1 { font-size: 1.6rem; font-weight: 700; margin-top: 0.2rem; }
+    .note { margin-top: 0.5rem; font-size: 0.82rem; color: #8b949e; background: #161b22; border: 1px solid #30363d; border-left: 3px solid #d29922; padding: 0.6rem 0.9rem; border-radius: 0 6px 6px 0; display: inline-block; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 900px; margin-top: 1.5rem; }
+    @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+    .panel { background: #1e1e2e; border: 1px solid #313244; border-radius: 10px; overflow: hidden; }
+    .panel-header { background: #181825; padding: 0.6rem 1rem; font-size: 0.75rem; color: #6c7086; display: flex; align-items: center; gap: 0.5rem; }
+    .panel-header strong { color: #cdd6f4; }
+    .panel-body { padding: 1rem; font-family: 'SF Mono', 'Fira Mono', monospace; font-size: 0.8rem; line-height: 1.8; color: #cdd6f4; }
+    .kw { color: #cba6f7; }
+    .cn { color: #89dceb; }
+    .fn { color: #89b4fa; }
+    .str { color: #a6e3a1; }
+    .cm { color: #585b70; }
+    .prop { color: #f38ba8; }
+    .num { color: #fab387; }
+    .i1 { margin-left: 16px; }
+    .i2 { margin-left: 32px; }
+
+    /* Class diagram */
+    .diagram-panel { background: #161b22; border: 1px solid #30363d; }
+    .diagram-panel .panel-header { background: #21262d; color: #8b949e; }
+    .diagram-panel .panel-body { background: #161b22; color: #e6edf3; }
+    .class-box { border: 2px solid #58a6ff; border-radius: 8px; overflow: hidden; margin: 0.5rem 0; font-size: 0.78rem; }
+    .class-name { background: #58a6ff22; color: #58a6ff; padding: 0.4rem 0.8rem; font-weight: 700; font-family: monospace; }
+    .class-props, .class-methods { padding: 0.4rem 0.8rem; border-top: 1px solid #30363d; }
+    .class-props span, .class-methods span { display: block; font-family: monospace; font-size: 0.75rem; color: #cdd9e5; padding: 0.1rem 0; }
+    .class-methods span { color: #79c0ff; }
+    .extends-arrow { text-align: center; color: #8b949e; font-size: 0.75rem; padding: 0.2rem; }
+    .class-box.child { border-color: #3fb950; }
+    .class-box.child .class-name { background: #3fb95022; color: #3fb950; }
+  </style>
+</head>
+<body>
+  <a class="back" href="../index.html">← Volver al índice</a>
+
+  <div class="header">
+    <div class="lab-num">Lab 8 · Preview</div>
+    <h1>OOP & Models</h1>
+    <span class="note">⚠ Este lab requiere Node.js. Las imágenes muestran cómo se vería ejecutándose localmente.</span>
+  </div>
+
+  <div class="cols">
+
+    <!-- Base class -->
+    <div class="panel">
+      <div class="panel-header">📄 <strong>models/User.js</strong> — Clase base</div>
+      <div class="panel-body">
+        <div><span class="kw">class</span> <span class="cn">User</span> {</div>
+        <div class="i1"><span class="fn">constructor</span>(name, email) {</div>
+        <div class="i2"><span class="kw">this</span>.<span class="prop">name</span> = name;</div>
+        <div class="i2"><span class="kw">this</span>.<span class="prop">email</span> = email;</div>
+        <div class="i2"><span class="kw">this</span>.<span class="prop">createdAt</span> = <span class="kw">new</span> <span class="cn">Date</span>();</div>
+        <div class="i1">}</div>
+        <div>&nbsp;</div>
+        <div class="i1"><span class="fn">save</span>() {</div>
+        <div class="i2"><span class="cm">// INSERT INTO users...</span></div>
+        <div class="i2"><span class="kw">return</span> db.query(<span class="str">`INSERT INTO users...`</span>);</div>
+        <div class="i1">}</div>
+        <div>&nbsp;</div>
+        <div class="i1"><span class="kw">static</span> <span class="fn">findById</span>(id) {</div>
+        <div class="i2"><span class="kw">return</span> db.query(<span class="str">`SELECT * FROM users WHERE id=?`</span>, [id]);</div>
+        <div class="i1">}</div>
+        <div>}</div>
+      </div>
+    </div>
+
+    <!-- Subclass -->
+    <div class="panel">
+      <div class="panel-header">📄 <strong>models/Admin.js</strong> — Herencia</div>
+      <div class="panel-body">
+        <div><span class="kw">class</span> <span class="cn">Admin</span> <span class="kw">extends</span> <span class="cn">User</span> {</div>
+        <div class="i1"><span class="fn">constructor</span>(name, email, level) {</div>
+        <div class="i2"><span class="kw">super</span>(name, email);</div>
+        <div class="i2"><span class="kw">this</span>.<span class="prop">level</span> = level;</div>
+        <div class="i2"><span class="kw">this</span>.<span class="prop">permissions</span> = [];</div>
+        <div class="i1">}</div>
+        <div>&nbsp;</div>
+        <div class="i1"><span class="fn">grantPermission</span>(perm) {</div>
+        <div class="i2"><span class="kw">this</span>.<span class="prop">permissions</span>.push(perm);</div>
+        <div class="i1">}</div>
+        <div>&nbsp;</div>
+        <div class="i1"><span class="fn">toString</span>() {</div>
+        <div class="i2"><span class="kw">return</span> <span class="str">`Admin: ${</span><span class="kw">this</span>.<span class="prop">name</span><span class="str">}`</span>;</div>
+        <div class="i1">}</div>
+        <div>}</div>
+      </div>
+    </div>
+
+    <!-- Class diagram -->
+    <div class="panel diagram-panel" style="grid-column: span 2;">
+      <div class="panel-header">📊 <strong>Diagrama de clases</strong></div>
+      <div class="panel-body" style="display:flex; gap:2rem; align-items:flex-start; flex-wrap:wrap;">
+        <div style="flex:1; min-width:180px;">
+          <div class="class-box">
+            <div class="class-name">User</div>
+            <div class="class-props">
+              <span>+ name: String</span>
+              <span>+ email: String</span>
+              <span>+ createdAt: Date</span>
+            </div>
+            <div class="class-methods">
+              <span>+ save(): Promise</span>
+              <span>+ findById(id): Promise</span>
+              <span>+ findAll(): Promise</span>
+            </div>
+          </div>
+          <div class="extends-arrow">▲ extends</div>
+          <div class="class-box child">
+            <div class="class-name">Admin</div>
+            <div class="class-props">
+              <span>+ level: Number</span>
+              <span>+ permissions: Array</span>
+            </div>
+            <div class="class-methods">
+              <span>+ grantPermission(p)</span>
+              <span>+ toString(): String</span>
+            </div>
+          </div>
+        </div>
+        <div style="flex:1; min-width:180px;">
+          <div class="class-box" style="border-color:#d2a8ff;">
+            <div class="class-name" style="background:#d2a8ff22; color:#d2a8ff;">Product</div>
+            <div class="class-props">
+              <span>+ name: String</span>
+              <span>+ price: Number</span>
+              <span>+ stock: Number</span>
+            </div>
+            <div class="class-methods">
+              <span>+ save(): Promise</span>
+              <span>+ updateStock(n)</span>
+              <span>+ findByCategory(c)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 10 – User Input & Validation · Preview</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0d1117; color: #e6edf3; min-height: 100vh; padding: 2rem 1.5rem; }
+    a.back { display: inline-flex; align-items: center; gap: 0.4rem; color: #58a6ff; text-decoration: none; font-size: 0.85rem; margin-bottom: 2rem; }
+    .header { margin-bottom: 2rem; }
+    .lab-num { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b949e; }
+    h1 { font-size: 1.6rem; font-weight: 700; margin-top: 0.2rem; }
+    .note { margin-top: 0.5rem; font-size: 0.82rem; color: #8b949e; background: #161b22; border: 1px solid #30363d; border-left: 3px solid #d29922; padding: 0.6rem 0.9rem; border-radius: 0 6px 6px 0; display: inline-block; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 900px; margin-top: 1.5rem; }
+    @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+    .panel { background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .panel-header { background: #21262d; padding: 0.6rem 1rem; font-size: 0.75rem; color: #8b949e; display: flex; align-items: center; gap: 0.5rem; }
+    .panel-header strong { color: #e6edf3; }
+    .panel-body { padding: 1rem; }
+
+    /* Code panel */
+    .code { font-family: 'SF Mono', monospace; font-size: 0.78rem; line-height: 1.8; background: #1e1e2e; border: 1px solid #313244; }
+    .code .panel-header { background: #181825; color: #6c7086; }
+    .code .panel-header strong { color: #cdd6f4; }
+    .code .panel-body { color: #cdd6f4; }
+    .kw { color: #cba6f7; }
+    .fn { color: #89b4fa; }
+    .str { color: #a6e3a1; }
+    .cm { color: #585b70; }
+    .i1 { margin-left: 16px; }
+    .i2 { margin-left: 32px; }
+
+    /* Browser form with errors */
+    .browser-bar { background: #f0f0f0; padding: 0.5rem 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+    .browser-dots { display: flex; gap: 4px; }
+    .browser-dots span { width: 9px; height: 9px; border-radius: 50%; }
+    .bd-r { background: #ff5f57; } .bd-y { background: #febc2e; } .bd-g { background: #28c840; }
+    .browser-url { background: white; border-radius: 4px; padding: 0.2rem 0.7rem; font-size: 0.75rem; color: #444; flex: 1; border: 1px solid #ddd; }
+    .browser-content { background: white; padding: 1.2rem; color: #24292f; font-family: -apple-system, sans-serif; }
+    .browser-content h2 { font-size: 1rem; margin-bottom: 1rem; }
+    .field { margin-bottom: 0.8rem; }
+    .field label { display: block; font-size: 0.8rem; font-weight: 600; color: #24292f; margin-bottom: 0.3rem; }
+    .field input, .field select { width: 100%; border: 1px solid #d0d7de; border-radius: 5px; padding: 0.4rem 0.6rem; font-size: 0.82rem; color: #24292f; }
+    .field input.valid { border-color: #2da44e; background: #f0fff4; }
+    .field input.error { border-color: #cf222e; background: #fff8f8; }
+    .error-msg { color: #cf222e; font-size: 0.75rem; margin-top: 0.2rem; display: flex; align-items: center; gap: 0.3rem; }
+    .success-msg { color: #2da44e; font-size: 0.75rem; margin-top: 0.2rem; display: flex; align-items: center; gap: 0.3rem; }
+    .submit-btn { background: #0969da; color: white; border: none; border-radius: 5px; padding: 0.5rem 1.2rem; font-size: 0.85rem; cursor: pointer; margin-top: 0.5rem; }
+
+    /* Success state */
+    .success-banner { background: #ddfbe7; border: 1px solid #2da44e; border-radius: 6px; padding: 0.8rem 1rem; color: #1a7f37; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <a class="back" href="../index.html">← Volver al índice</a>
+  <div class="header">
+    <div class="lab-num">Lab 10 · Preview</div>
+    <h1>User Input & Validation</h1>
+    <span class="note">⚠ Este lab requiere Node.js. Las imágenes muestran cómo se vería ejecutándose localmente.</span>
+  </div>
+
+  <div class="cols">
+
+    <!-- Validation code -->
+    <div class="panel code">
+      <div class="panel-header">📄 <strong>routes/register.js</strong> — Validación servidor</div>
+      <div class="panel-body">
+        <div><span class="kw">const</span> { body, validationResult } =</div>
+        <div>&nbsp;&nbsp;require(<span class="str">'express-validator'</span>);</div>
+        <div>&nbsp;</div>
+        <div>router.<span class="fn">post</span>(<span class="str">'/register'</span>, [</div>
+        <div class="i1">body(<span class="str">'username'</span>)</div>
+        <div class="i2">.<span class="fn">notEmpty</span>().<span class="fn">withMessage</span>(<span class="str">'Required'</span>)</div>
+        <div class="i2">.<span class="fn">isLength</span>({ min: <span class="fn">3</span> }),</div>
+        <div class="i1">body(<span class="str">'email'</span>)</div>
+        <div class="i2">.<span class="fn">isEmail</span>().<span class="fn">withMessage</span>(<span class="str">'Invalid email'</span>),</div>
+        <div class="i1">body(<span class="str">'age'</span>)</div>
+        <div class="i2">.<span class="fn">isInt</span>({ min: <span class="fn">18</span> }),</div>
+        <div>], (req, res) => {</div>
+        <div class="i1"><span class="kw">const</span> errors = <span class="fn">validationResult</span>(req);</div>
+        <div class="i1"><span class="kw">if</span> (!errors.<span class="fn">isEmpty</span>()) {</div>
+        <div class="i2"><span class="kw">return</span> res.<span class="fn">render</span>(<span class="str">'register'</span>, { errors });</div>
+        <div class="i1">}</div>
+        <div class="i1"><span class="cm">// datos válidos → guardar</span></div>
+        <div>});</div>
+      </div>
+    </div>
+
+    <!-- Form with errors state -->
+    <div class="panel">
+      <div class="panel-header">🌐 <strong>Estado con errores</strong> — localhost:3000/register</div>
+      <div class="browser-bar">
+        <div class="browser-dots"><span class="bd-r"></span><span class="bd-y"></span><span class="bd-g"></span></div>
+        <div class="browser-url">http://localhost:3000/register</div>
+      </div>
+      <div class="browser-content">
+        <h2>Register</h2>
+        <div class="field">
+          <label>Username</label>
+          <input class="valid" type="text" value="jdoe" readonly>
+          <div class="success-msg">✓ Looks good</div>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input class="error" type="text" value="not-an-email" readonly>
+          <div class="error-msg">⚠ Please enter a valid email address</div>
+        </div>
+        <div class="field">
+          <label>Age</label>
+          <input class="error" type="text" value="15" readonly>
+          <div class="error-msg">⚠ Must be 18 or older</div>
+        </div>
+        <button class="submit-btn">Register</button>
+      </div>
+    </div>
+
+    <!-- Form success state -->
+    <div class="panel" style="grid-column: span 2;">
+      <div class="panel-header">🌐 <strong>Estado válido</strong> — Después de envío correcto</div>
+      <div class="browser-bar">
+        <div class="browser-dots"><span class="bd-r"></span><span class="bd-y"></span><span class="bd-g"></span></div>
+        <div class="browser-url">http://localhost:3000/register</div>
+      </div>
+      <div class="browser-content" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div>
+          <h2>Register</h2>
+          <div class="field"><label>Username</label><input class="valid" type="text" value="jdoe" readonly></div>
+          <div class="field"><label>Email</label><input class="valid" type="text" value="jdoe@email.com" readonly></div>
+          <div class="field"><label>Age</label><input class="valid" type="text" value="22" readonly></div>
+          <button class="submit-btn">Register</button>
+        </div>
+        <div style="padding-top:0.5rem;">
+          <div class="success-banner">✅ User registered successfully! Redirecting to login...</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

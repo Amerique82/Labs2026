@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 6 – Express & MySQL · Preview</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0d1117; color: #e6edf3; min-height: 100vh; padding: 2rem 1.5rem; }
+    a.back { display: inline-flex; align-items: center; gap: 0.4rem; color: #58a6ff; text-decoration: none; font-size: 0.85rem; margin-bottom: 2rem; }
+    a.back:hover { text-decoration: underline; }
+    .header { margin-bottom: 2rem; }
+    .lab-num { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b949e; }
+    h1 { font-size: 1.6rem; font-weight: 700; margin-top: 0.2rem; }
+    .note { margin-top: 0.5rem; font-size: 0.82rem; color: #8b949e; background: #161b22; border: 1px solid #30363d; border-left: 3px solid #d29922; padding: 0.6rem 0.9rem; border-radius: 0 6px 6px 0; display: inline-block; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 900px; margin-top: 1.5rem; }
+    @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+    .panel { background: #161b22; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .panel-header { background: #21262d; padding: 0.6rem 1rem; font-size: 0.75rem; color: #8b949e; display: flex; align-items: center; gap: 0.5rem; }
+    .panel-header strong { color: #e6edf3; }
+    .panel-body { padding: 1rem; }
+
+    /* SQL panel */
+    .sql { font-family: 'SF Mono', monospace; font-size: 0.8rem; line-height: 1.8; }
+    .kw { color: #ff7b72; }
+    .col { color: #79c0ff; }
+    .val { color: #a5d6ff; }
+    .str { color: #a5d6ff; }
+    .cm { color: #8b949e; }
+
+    /* CRUD table */
+    .browser-bar { background: #f0f0f0; padding: 0.5rem 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+    .browser-dots { display: flex; gap: 4px; }
+    .browser-dots span { width: 9px; height: 9px; border-radius: 50%; }
+    .bd-r { background: #ff5f57; } .bd-y { background: #febc2e; } .bd-g { background: #28c840; }
+    .browser-url { background: white; border-radius: 4px; padding: 0.2rem 0.7rem; font-size: 0.75rem; color: #444; flex: 1; border: 1px solid #ddd; }
+    .browser-content { background: white; padding: 1rem 1.2rem; color: #24292f; font-family: -apple-system, sans-serif; }
+    .browser-content h2 { font-size: 1rem; margin-bottom: 0.8rem; display: flex; justify-content: space-between; align-items: center; }
+    .btn-add { background: #2da44e; color: white; border: none; border-radius: 5px; padding: 0.25rem 0.7rem; font-size: 0.75rem; cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    th { background: #f6f8fa; padding: 0.4rem 0.6rem; text-align: left; color: #57606a; border-bottom: 2px solid #d0d7de; font-weight: 600; }
+    td { padding: 0.4rem 0.6rem; border-bottom: 1px solid #eaeef2; color: #24292f; }
+    tr:hover td { background: #f6f8fa; }
+    .tag-admin { background: #ddf4ff; color: #0969da; padding: 0.1rem 0.4rem; border-radius: 999px; font-size: 0.72rem; }
+    .tag-user { background: #ddfbe7; color: #1a7f37; padding: 0.1rem 0.4rem; border-radius: 999px; font-size: 0.72rem; }
+    .action-btn { background: none; border: none; cursor: pointer; font-size: 0.75rem; color: #0969da; margin-right: 6px; }
+    .action-btn.del { color: #cf222e; }
+  </style>
+</head>
+<body>
+  <a class="back" href="../index.html">← Volver al índice</a>
+
+  <div class="header">
+    <div class="lab-num">Lab 6 · Preview</div>
+    <h1>Express & MySQL</h1>
+    <span class="note">⚠ Este lab requiere Node.js y MySQL. Las imágenes muestran cómo se vería ejecutándose localmente.</span>
+  </div>
+
+  <div class="cols">
+
+    <!-- SQL Query panel -->
+    <div class="panel">
+      <div class="panel-header">🗄 <strong>db/queries.js</strong> — Consultas SQL</div>
+      <div class="panel-body sql">
+        <div><span class="cm">// Obtener todos los usuarios</span></div>
+        <div><span class="kw">SELECT</span> <span class="col">*</span> <span class="kw">FROM</span> users;</div>
+        <div>&nbsp;</div>
+        <div><span class="cm">// Insertar nuevo usuario</span></div>
+        <div><span class="kw">INSERT INTO</span> users</div>
+        <div>&nbsp;&nbsp;(name, email, role)</div>
+        <div><span class="kw">VALUES</span> (<span class="str">'Alice'</span>, <span class="str">'alice@mail.com'</span>, <span class="str">'admin'</span>);</div>
+        <div>&nbsp;</div>
+        <div><span class="cm">// Actualizar</span></div>
+        <div><span class="kw">UPDATE</span> users <span class="kw">SET</span> <span class="col">role</span> = <span class="str">'editor'</span></div>
+        <div><span class="kw">WHERE</span> <span class="col">id</span> = <span class="val">2</span>;</div>
+        <div>&nbsp;</div>
+        <div><span class="cm">// Eliminar</span></div>
+        <div><span class="kw">DELETE FROM</span> users <span class="kw">WHERE</span> <span class="col">id</span> = <span class="val">3</span>;</div>
+      </div>
+    </div>
+
+    <!-- Schema panel -->
+    <div class="panel">
+      <div class="panel-header">📋 <strong>schema.sql</strong> — Estructura de tabla</div>
+      <div class="panel-body sql">
+        <div><span class="kw">CREATE TABLE</span> <span class="col">users</span> (</div>
+        <div>&nbsp;&nbsp;<span class="col">id</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">INT</span> <span class="kw">AUTO_INCREMENT</span> <span class="kw">PRIMARY KEY</span>,</div>
+        <div>&nbsp;&nbsp;<span class="col">name</span>&nbsp;&nbsp;<span class="kw">VARCHAR</span>(<span class="val">100</span>) <span class="kw">NOT NULL</span>,</div>
+        <div>&nbsp;&nbsp;<span class="col">email</span>&nbsp;<span class="kw">VARCHAR</span>(<span class="val">150</span>) <span class="kw">UNIQUE</span>,</div>
+        <div>&nbsp;&nbsp;<span class="col">role</span>&nbsp;&nbsp;<span class="kw">ENUM</span>(<span class="str">'admin'</span>,<span class="str">'user'</span>,<span class="str">'editor'</span>)</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">DEFAULT</span> <span class="str">'user'</span>,</div>
+        <div>&nbsp;&nbsp;<span class="col">created_at</span> <span class="kw">TIMESTAMP</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">DEFAULT CURRENT_TIMESTAMP</span></div>
+        <div>);</div>
+      </div>
+    </div>
+
+    <!-- Browser CRUD view -->
+    <div class="panel" style="grid-column: span 2; overflow:hidden;">
+      <div class="panel-header">🌐 <strong>Browser</strong> — localhost:3000/users</div>
+      <div class="browser-bar">
+        <div class="browser-dots"><span class="bd-r"></span><span class="bd-y"></span><span class="bd-g"></span></div>
+        <div class="browser-url">http://localhost:3000/users</div>
+      </div>
+      <div class="browser-content">
+        <h2>Users <button class="btn-add">+ New User</button></h2>
+        <table>
+          <tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Actions</th></tr>
+          <tr><td>1</td><td>Alice</td><td>alice@mail.com</td><td><span class="tag-admin">admin</span></td><td><button class="action-btn">Edit</button><button class="action-btn del">Delete</button></td></tr>
+          <tr><td>2</td><td>Bob</td><td>bob@mail.com</td><td><span class="tag-user">user</span></td><td><button class="action-btn">Edit</button><button class="action-btn del">Delete</button></td></tr>
+          <tr><td>3</td><td>Carol</td><td>carol@mail.com</td><td><span class="tag-user">user</span></td><td><button class="action-btn">Edit</button><button class="action-btn del">Delete</button></td></tr>
+          <tr><td>4</td><td>Dave</td><td>dave@mail.com</td><td><span class="tag-admin">admin</span></td><td><button class="action-btn">Edit</button><button class="action-btn del">Delete</button></td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

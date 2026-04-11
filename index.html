@@ -3,350 +3,612 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Labs 2026 - Amerique82</title>
+  <title>Labs 2026 – Amerique82</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --border-hover: #58a6ff;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --yellow: #d29922;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0d1117;
-      color: #e6edf3;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 3rem 1rem;
+      padding: 3rem 1.5rem 4rem;
     }
-    h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-    p.subtitle { color: #8b949e; margin-bottom: 2.5rem; }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    header p {
+      color: var(--muted);
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+    }
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.2rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .legend span { display: flex; align-items: center; gap: 0.4rem; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot-live { background: var(--green); }
+    .dot-preview { background: var(--yellow); }
+
+    /* ── Section headings ── */
+    .section-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      padding-left: 0.1rem;
+    }
+
+    /* ── Grid ── */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-      width: 100%;
-      max-width: 900px;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.1rem;
+      max-width: 1050px;
+      margin: 0 auto 2.5rem;
     }
+
+    /* ── Card ── */
     .card {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 10px;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      transition: border-color 0.2s, transform 0.15s;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem 1.5rem 1.2rem;
       display: flex;
       flex-direction: column;
+      gap: 0.9rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.18s, transform 0.15s, box-shadow 0.18s;
+      cursor: pointer;
     }
-    a.card:hover {
-      border-color: #58a6ff;
-      transform: translateY(-2px);
+    a.card:hover, .card.clickable:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
-    .card-body { padding: 1.25rem 1.5rem; }
-    .card .label {
-      font-size: 0.75rem;
+
+    /* ── Card top row ── */
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .card-number {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-top: 0.15rem;
+    }
+    .status-badge {
+      flex-shrink: 0;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+    }
+    .live { background: #1a3a2a; color: var(--green); border: 1px solid #2ea04326; }
+    .server { background: #2d2008; color: var(--yellow); border: 1px solid #d2992226; }
+
+    /* ── Description ── */
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── Tools ── */
+    .card-tools { display: flex; flex-direction: column; gap: 0.35rem; }
+    .tools-label {
+      font-size: 0.68rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #58a6ff;
-      margin-bottom: 0.4rem;
+      color: var(--muted);
     }
-    .card h2 { font-size: 1rem; margin-bottom: 0.3rem; }
-    .card p { font-size: 0.85rem; color: #8b949e; }
-    .badge {
-      display: inline-block;
+    .tools-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tag {
       font-size: 0.7rem;
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-      margin-top: 0.6rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 6px;
       background: #21262d;
-      color: #8b949e;
+      color: #cdd9e5;
+      border: 1px solid #30363d;
     }
-    .badge.static { background: #0d419d33; color: #58a6ff; }
 
-    /* ── Mini preview thumbnails ── */
-    .preview {
-      background: #f6f8fa;
-      height: 130px;
-      overflow: hidden;
-      position: relative;
-      flex-shrink: 0;
+    /* ── Objetivo ── */
+    .card-objetivo { display: flex; flex-direction: column; gap: 0.35rem; }
+    .objetivo-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
     }
-    .preview .bar {
-      height: 20px;
-      background: #24292f;
+    .objetivo-text {
+      font-size: 0.82rem;
+      color: #cdd9e5;
+      line-height: 1.6;
+      background: #0d1117;
+      border-left: 3px solid var(--accent);
+      padding: 0.5rem 0.75rem;
+      border-radius: 0 6px 6px 0;
+    }
+
+    /* ── Difficulty ── */
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.4rem;
+      border-top: 1px solid #21262d;
+    }
+    .difficulty {
+      font-size: 0.7rem;
+      color: var(--muted);
       display: flex;
       align-items: center;
-      padding: 0 8px;
-      gap: 5px;
+      gap: 0.3rem;
     }
-    .preview .bar span {
-      width: 8px; height: 8px; border-radius: 50%;
-      display: inline-block;
+    .diff-dots { display: flex; gap: 3px; }
+    .diff-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #30363d;
     }
-    .preview .bar .r { background: #ff5f57; }
-    .preview .bar .y { background: #febc2e; }
-    .preview .bar .g { background: #28c840; }
-    .preview .content { padding: 8px 10px; font-size: 9px; color: #24292f; }
-
-    /* Lab 5 — Express routes */
-    .p5 .content { font-family: monospace; }
-    .p5 .route { margin: 3px 0; }
-    .p5 .method { display: inline-block; padding: 1px 4px; border-radius: 2px; font-weight: bold; margin-right: 4px; }
-    .p5 .get { background: #ddfbe7; color: #1a7f37; }
-    .p5 .post { background: #ddf4ff; color: #0969da; }
-    .p5 .path { color: #6e40c9; }
-    .p5 .ok { color: #8b949e; font-size: 8px; }
-
-    /* Lab 6 — MySQL table */
-    .p6 .content { padding: 6px; }
-    .p6 table { width: 100%; border-collapse: collapse; font-size: 8px; }
-    .p6 th { background: #eaeef2; padding: 3px 5px; text-align: left; color: #57606a; border-bottom: 1px solid #d0d7de; }
-    .p6 td { padding: 3px 5px; border-bottom: 1px solid #eaeef2; color: #24292f; }
-    .p6 tr:nth-child(even) td { background: #f6f8fa; }
-
-    /* Lab 7 — Pug template */
-    .p7 .content { font-family: monospace; color: #24292f; }
-    .p7 .tag { color: #0550ae; }
-    .p7 .attr { color: #116329; }
-    .p7 .val { color: #0a3069; }
-    .p7 .txt { color: #24292f; }
-    .p7 .indent1 { margin-left: 12px; }
-    .p7 .indent2 { margin-left: 24px; }
-    .p7 .line { margin: 2px 0; }
-
-    /* Lab 8 — OOP class */
-    .p8 .content { font-family: monospace; background: #1e1e2e; color: #cdd6f4; height: 100%; }
-    .p8 .kw { color: #cba6f7; }
-    .p8 .cn { color: #89dceb; }
-    .p8 .fn { color: #89b4fa; }
-    .p8 .cm { color: #585b70; }
-    .p8 .line { margin: 1px 0; white-space: pre; }
-    .p8 .preview { background: #1e1e2e; }
-
-    /* Lab 9 — MVC routes */
-    .p9 .content { font-family: monospace; background: #1e1e2e; color: #cdd6f4; }
-    .p9 .kw { color: #cba6f7; }
-    .p9 .str { color: #a6e3a1; }
-    .p9 .fn { color: #89b4fa; }
-    .p9 .line { margin: 1px 0; white-space: pre; }
-    .p9 .preview { background: #1e1e2e; }
-
-    /* Lab 10 — Form validation */
-    .p10 .content { }
-    .p10 .field { margin: 4px 0; }
-    .p10 label { font-size: 8px; color: #57606a; display: block; margin-bottom: 1px; }
-    .p10 input { width: 100%; border: 1px solid #d0d7de; border-radius: 3px; padding: 2px 5px; font-size: 8px; color: #24292f; }
-    .p10 input.err { border-color: #cf222e; background: #fff8f8; }
-    .p10 .error-msg { color: #cf222e; font-size: 7px; margin-top: 1px; }
-    .p10 .btn { background: #0969da; color: #fff; border: none; border-radius: 4px; padding: 3px 10px; font-size: 8px; margin-top: 5px; cursor: pointer; }
-
-    /* Lab 11 — Login form */
-    .p11 .content { display: flex; justify-content: center; align-items: flex-start; padding-top: 10px; }
-    .p11 .login-box { background: #fff; border: 1px solid #d0d7de; border-radius: 6px; padding: 12px; width: 140px; }
-    .p11 .login-box h3 { text-align: center; font-size: 9px; color: #24292f; margin-bottom: 6px; }
-    .p11 .login-box label { font-size: 7px; color: #57606a; display: block; margin-bottom: 1px; }
-    .p11 .login-box input { width: 100%; border: 1px solid #d0d7de; border-radius: 3px; padding: 2px 4px; font-size: 7px; margin-bottom: 5px; }
-    .p11 .login-box .btn { width: 100%; background: #218bff; color: #fff; border: none; border-radius: 4px; padding: 3px; font-size: 8px; cursor: pointer; }
-    .p11 .lock { text-align: center; font-size: 18px; margin-bottom: 4px; }
+    .diff-dot.on { background: var(--accent); }
+    .diff-dot.on.med { background: var(--yellow); }
+    .diff-dot.on.hard { background: #f85149; }
+    .card-action {
+      font-size: 0.75rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-weight: 500;
+    }
+    .card-action svg { width: 12px; height: 12px; }
   </style>
 </head>
 <body>
-  <h1>Labs 2026</h1>
-  <p class="subtitle">Web Development course labs — Amerique82</p>
 
+  <header>
+    <h1>Labs 2026</h1>
+    <p>Web Development course — Amerique82</p>
+    <div class="legend">
+      <span><i class="dot dot-live"></i> Ejecutable en vivo</span>
+      <span><i class="dot dot-preview"></i> Solo preview (requiere servidor)</span>
+    </div>
+  </header>
+
+  <!-- Static labs -->
+  <div style="max-width:1050px;margin:0 auto;">
+    <p class="section-title">Frontend — Ejecutables en GitHub Pages</p>
+  </div>
   <div class="grid">
 
-    <!-- Labs 1-4: no preview, just card -->
     <a class="card" href="lab1-html/index.html">
-      <div class="card-body">
-        <div class="label">Lab 1</div>
-        <h2>HTML Basics</h2>
-        <p>Headings, links, images, tables, forms, and semantic structure.</p>
-        <span class="badge static">HTML</span>
+      <div class="card-top">
+        <div>
+          <div class="card-number">Lab 1</div>
+          <div class="card-title">HTML Basics</div>
+        </div>
+        <span class="status-badge live">Live</span>
+      </div>
+      <p class="card-desc">Introducción a los elementos fundamentales de HTML: encabezados, párrafos, imágenes, tablas, formularios y estructura semántica de una página.</p>
+      <div class="card-tools">
+        <span class="tools-label">🔧 Herramientas</span>
+        <div class="tools-tags">
+          <span class="tag">HTML5</span>
+        </div>
+      </div>
+      <div class="card-objetivo">
+        <span class="objetivo-label">🎯 Objetivo del ejercicio</span>
+        <div class="objetivo-text">Familiarizarse con la sintaxis básica de HTML y entender cómo los navegadores interpretan el marcado para construir la estructura visual de una página web.</div>
+      </div>
+      <div class="card-footer">
+        <div class="difficulty">
+          Dificultad
+          <div class="diff-dots">
+            <div class="diff-dot on"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+          </div>
+        </div>
+        <span class="card-action">Abrir lab <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg></span>
       </div>
     </a>
 
     <a class="card" href="lab2-forms-css-git/index.html">
-      <div class="card-body">
-        <div class="label">Lab 2</div>
-        <h2>Forms, CSS & Git</h2>
-        <p>Styled forms, GET vs POST, and version control intro.</p>
-        <span class="badge static">HTML · CSS</span>
+      <div class="card-top">
+        <div>
+          <div class="card-number">Lab 2</div>
+          <div class="card-title">Forms, CSS & Git</div>
+        </div>
+        <span class="status-badge live">Live</span>
+      </div>
+      <p class="card-desc">Creación y estilización de formularios HTML con CSS. Comparación entre métodos GET y POST. Primera introducción al flujo de trabajo con Git.</p>
+      <div class="card-tools">
+        <span class="tools-label">🔧 Herramientas</span>
+        <div class="tools-tags">
+          <span class="tag">HTML5</span>
+          <span class="tag">CSS3</span>
+          <span class="tag">Git</span>
+        </div>
+      </div>
+      <div class="card-objetivo">
+        <span class="objetivo-label">🎯 Objetivo del ejercicio</span>
+        <div class="objetivo-text">Aprender a capturar datos de usuario con formularios, aplicar estilos con CSS, y versionar el proyecto con comandos básicos de Git.</div>
+      </div>
+      <div class="card-footer">
+        <div class="difficulty">
+          Dificultad
+          <div class="diff-dots">
+            <div class="diff-dot on"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+          </div>
+        </div>
+        <span class="card-action">Abrir lab <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg></span>
       </div>
     </a>
 
     <a class="card" href="lab3-bootstrap-git-branching/index.html">
-      <div class="card-body">
-        <div class="label">Lab 3</div>
-        <h2>Bootstrap & Branching</h2>
-        <p>Responsive layouts with Bootstrap and Git branching workflow.</p>
-        <span class="badge static">Bootstrap · CSS</span>
+      <div class="card-top">
+        <div>
+          <div class="card-number">Lab 3</div>
+          <div class="card-title">Bootstrap & Git Branching</div>
+        </div>
+        <span class="status-badge live">Live</span>
+      </div>
+      <p class="card-desc">Layouts responsivos usando el framework Bootstrap. Práctica del flujo de ramas en Git: crear, cambiar y fusionar branches.</p>
+      <div class="card-tools">
+        <span class="tools-label">🔧 Herramientas</span>
+        <div class="tools-tags">
+          <span class="tag">HTML5</span>
+          <span class="tag">CSS3</span>
+          <span class="tag">Bootstrap 5</span>
+          <span class="tag">Git Branches</span>
+        </div>
+      </div>
+      <div class="card-objetivo">
+        <span class="objetivo-label">🎯 Objetivo del ejercicio</span>
+        <div class="objetivo-text">Usar un framework CSS para construir interfaces responsivas sin escribir CSS desde cero, y practicar el flujo de trabajo colaborativo con ramas de Git.</div>
+      </div>
+      <div class="card-footer">
+        <div class="difficulty">
+          Dificultad
+          <div class="diff-dots">
+            <div class="diff-dot on"></div>
+            <div class="diff-dot on med"></div>
+            <div class="diff-dot"></div>
+          </div>
+        </div>
+        <span class="card-action">Abrir lab <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg></span>
       </div>
     </a>
 
     <a class="card" href="lab4-javascript/index.html">
-      <div class="card-body">
-        <div class="label">Lab 4</div>
-        <h2>JavaScript</h2>
-        <p>DOM manipulation, events, and JS fundamentals.</p>
-        <span class="badge static">JS</span>
+      <div class="card-top">
+        <div>
+          <div class="card-number">Lab 4</div>
+          <div class="card-title">JavaScript Fundamentals</div>
+        </div>
+        <span class="status-badge live">Live</span>
+      </div>
+      <p class="card-desc">Fundamentos de JavaScript: variables, funciones, estructuras de control, y manipulación del DOM para hacer páginas interactivas.</p>
+      <div class="card-tools">
+        <span class="tools-label">🔧 Herramientas</span>
+        <div class="tools-tags">
+          <span class="tag">JavaScript ES6</span>
+          <span class="tag">DOM API</span>
+          <span class="tag">Browser DevTools</span>
+        </div>
+      </div>
+      <div class="card-objetivo">
+        <span class="objetivo-label">🎯 Objetivo del ejercicio</span>
+        <div class="objetivo-text">Entender cómo JavaScript interactúa con el HTML para crear comportamiento dinámico: responder a eventos, modificar contenido y actualizar estilos en tiempo real.</div>
+      </div>
+      <div class="card-footer">
+        <div class="difficulty">
+          Dificultad
+          <div class="diff-dots">
+            <div class="diff-dot on"></div>
+            <div class="diff-dot on med"></div>
+            <div class="diff-dot"></div>
+          </div>
+        </div>
+        <span class="card-action">Abrir lab <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg></span>
       </div>
     </a>
 
-    <!-- Labs 5-11: with mini preview -->
-    <div class="card p5" style="opacity:0.75; cursor:default;">
-      <div class="preview p5">
-        <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-        <div class="content">
-          <div class="route"><span class="method get">GET</span><span class="path">/</span> <span class="ok">→ index()</span></div>
-          <div class="route"><span class="method get">GET</span><span class="path">/about</span> <span class="ok">→ about()</span></div>
-          <div class="route"><span class="method post">POST</span><span class="path">/contact</span> <span class="ok">→ send()</span></div>
-          <div class="route"><span class="method get">GET</span><span class="path">/users</span> <span class="ok">→ list()</span></div>
-          <div class="route"><span class="method post">POST</span><span class="path">/users</span> <span class="ok">→ create()</span></div>
-          <div style="margin-top:6px;color:#57606a;font-size:8px;">Listening on port 3000…</div>
+  </div>
+
+  <!-- Server labs -->
+  <div style="max-width:1050px;margin:0 auto;">
+    <p class="section-title">Backend — Requieren servidor Node.js</p>
+  </div>
+  <div class="grid">
+
+    <a class="card" href="lab5-nodejs-express/preview.html">
+      <div class="card-top">
+        <div>
+          <div class="card-number">Lab 5</div>
+          <div class="card-title">Node.js & Express</div>
+        </div>
+        <span class="status-badge server">Preview</span>
+      </div>
+      <p class="card-desc">Creación de un servidor web con Node.js y Express. Definición de rutas HTTP, manejo de peticiones y envío de respuestas al cliente.</p>
+      <div class="card-tools">
+        <span class="tools-label">🔧 Herramientas</span>
+        <div class="tools-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Express</span>
+          <span class="tag">HTTP</span>
+          <span class="tag">npm</span>
         </div>
       </div>
-      <div class="card-body">
-        <div class="label">Lab 5</div>
-        <h2>Node.js & Express</h2>
-        <p>Server-side routing and Express framework basics.</p>
-        <span class="badge">Node.js · Server</span>
+      <div class="card-objetivo">
+        <span class="objetivo-label">🎯 Objetivo del ejercicio</span>
+        <div class="objetivo-text">Comprender cómo funciona un servidor web real: recibir peticiones, procesarlas con rutas específicas y devolver respuestas. Base de toda aplicación web backend.</div>
       </div>
-    </div>
-
-    <div class="card p6" style="opacity:0.75; cursor:default;">
-      <div class="preview p6">
-        <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-        <div class="content">
-          <table>
-            <tr><th>id</th><th>name</th><th>email</th><th>role</th></tr>
-            <tr><td>1</td><td>Alice</td><td>alice@mail.com</td><td>admin</td></tr>
-            <tr><td>2</td><td>Bob</td><td>bob@mail.com</td><td>user</td></tr>
-            <tr><td>3</td><td>Carol</td><td>carol@mail.com</td><td>user</td></tr>
-            <tr><td>4</td><td>Dave</td><td>dave@mail.com</td><td>editor</td></tr>
-          </table>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="label">Lab 6</div>
-        <h2>Express & MySQL</h2>
-        <p>Database integration with MySQL and Express.</p>
-        <span class="badge">Node.js · MySQL</span>
-      </div>
-    </div>
-
-    <div class="card p7" style="opacity:0.75; cursor:default;">
-      <div class="preview p7">
-        <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-        <div class="content">
-          <div class="line"><span class="tag">doctype</span> html</div>
-          <div class="line"><span class="tag">html</span></div>
-          <div class="line indent1"><span class="tag">head</span></div>
-          <div class="line indent2"><span class="tag">title</span> <span class="txt">= title</span></div>
-          <div class="line indent1"><span class="tag">body</span></div>
-          <div class="line indent2"><span class="tag">h1</span> <span class="txt">Welcome, </span><span class="attr">#{user}</span></div>
-          <div class="line indent2"><span class="tag">each</span> <span class="attr">item</span> <span class="tag">in</span> <span class="val">items</span></div>
-          <div class="line" style="margin-left:36px"><span class="tag">li</span> <span class="txt">= item.name</span></div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="label">Lab 7</div>
-        <h2>Pug Templates</h2>
-        <p>Server-side rendering with the Pug template engine.</p>
-        <span class="badge">Node.js · Pug</span>
-      </div>
-    </div>
-
-    <div class="card p8" style="opacity:0.75; cursor:default;">
-      <div class="preview" style="background:#1e1e2e;">
-        <div class="bar" style="background:#11111b;"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-        <div class="content" style="font-family:monospace;background:#1e1e2e;color:#cdd6f4;padding:6px 10px;">
-          <div class="line"><span style="color:#cba6f7">class</span> <span style="color:#89dceb">User</span> {</div>
-          <div class="line" style="margin-left:12px"><span style="color:#cba6f7">constructor</span>(name, email) {</div>
-          <div class="line" style="margin-left:24px"><span style="color:#cba6f7">this</span>.name = name;</div>
-          <div class="line" style="margin-left:24px"><span style="color:#cba6f7">this</span>.email = email;</div>
-          <div class="line" style="margin-left:12px">}</div>
-          <div class="line" style="margin-left:12px"><span style="color:#89b4fa">save</span>() { <span style="color:#585b70">/* insert DB */</span> }</div>
-          <div class="line">}</div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="label">Lab 8</div>
-        <h2>OOP & Models</h2>
-        <p>Object-oriented patterns and data modeling.</p>
-        <span class="badge">Node.js · OOP</span>
-      </div>
-    </div>
-
-    <div class="card p9" style="opacity:0.75; cursor:default;">
-      <div class="preview" style="background:#1e1e2e;">
-        <div class="bar" style="background:#11111b;"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-        <div class="content" style="font-family:monospace;background:#1e1e2e;color:#cdd6f4;padding:6px 10px;">
-          <div class="line"><span style="color:#585b70">// routes/users.js</span></div>
-          <div class="line"><span style="color:#cba6f7">const</span> ctrl = require(<span style="color:#a6e3a1">'../controllers/user'</span>);</div>
-          <div class="line" style="margin-top:4px">router.<span style="color:#89b4fa">get</span>(<span style="color:#a6e3a1">'/'</span>, ctrl.index);</div>
-          <div class="line">router.<span style="color:#89b4fa">post</span>(<span style="color:#a6e3a1">'/'</span>, ctrl.create);</div>
-          <div class="line">router.<span style="color:#89b4fa">get</span>(<span style="color:#a6e3a1">'/:id'</span>, ctrl.show);</div>
-          <div class="line">router.<span style="color:#89b4fa">delete</span>(<span style="color:#a6e3a1">'/:id'</span>, ctrl.destroy);</div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="label">Lab 9</div>
-        <h2>Models & Controllers</h2>
-        <p>MVC architecture with controllers and database models.</p>
-        <span class="badge">Node.js · MVC</span>
-      </div>
-    </div>
-
-    <div class="card p10" style="opacity:0.75; cursor:default;">
-      <div class="preview p10">
-        <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-        <div class="content">
-          <div class="field">
-            <label>Username</label>
-            <input type="text" value="john_doe" readonly>
-          </div>
-          <div class="field">
-            <label>Email</label>
-            <input class="err" type="text" value="not-an-email" readonly>
-            <div class="error-msg">⚠ Enter a valid email address</div>
-          </div>
-          <div class="field">
-            <label>Age</label>
-            <input type="text" value="25" readonly>
-          </div>
-          <button class="btn">Submit</button>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="label">Lab 10</div>
-        <h2>User Input</h2>
-        <p>Handling and validating user input server-side.</p>
-        <span class="badge">Node.js</span>
-      </div>
-    </div>
-
-    <div class="card p11" style="opacity:0.75; cursor:default;">
-      <div class="preview p11">
-        <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-        <div class="content">
-          <div class="login-box">
-            <div class="lock">🔒</div>
-            <h3>Sign in</h3>
-            <label>Username</label>
-            <input type="text" placeholder="your username" readonly>
-            <label>Password</label>
-            <input type="password" placeholder="••••••••" readonly>
-            <button class="btn">Sign in</button>
+      <div class="card-footer">
+        <div class="difficulty">
+          Dificultad
+          <div class="diff-dots">
+            <div class="diff-dot on"></div>
+            <div class="diff-dot on med"></div>
+            <div class="diff-dot"></div>
           </div>
         </div>
+        <span class="card-action">Ver preview <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg></span>
       </div>
-      <div class="card-body">
-        <div class="label">Lab 11</div>
-        <h2>Authentication</h2>
-        <p>Session-based auth and user login flow.</p>
-        <span class="badge">Node.js · Auth</span>
+    </a>
+
+    <a class="card" href="lab6-express-mysql/preview.html">
+      <div class="card-top">
+        <div>
+          <div class="card-number">Lab 6</div>
+          <div class="card-title">Express & MySQL</div>
+        </div>
+        <span class="status-badge server">Preview</span>
       </div>
-    </div>
+      <p class="card-desc">Conexión de una aplicación Express con una base de datos MySQL. Consultas SQL desde Node.js para leer, insertar, actualizar y eliminar datos.</p>
+      <div class="card-tools">
+        <span class="tools-label">🔧 Herramientas</span>
+        <div class="tools-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Express</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">SQL</span>
+        </div>
+      </div>
+      <div class="card-objetivo">
+        <span class="objetivo-label">🎯 Objetivo del ejercicio</span>
+        <div class="objetivo-text">Aprender a persistir datos en una base de datos relacional desde una aplicación web, realizando operaciones CRUD completas sobre tablas reales.</div>
+      </div>
+      <div class="card-footer">
+        <div class="difficulty">
+          Dificultad
+          <div class="diff-dots">
+            <div class="diff-dot on"></div>
+            <div class="diff-dot on med"></div>
+            <div class="diff-dot on med"></div>
+          </div>
+        </div>
+        <span class="card-action">Ver preview <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg></span>
+      </div>
+    </a>
+
+    <a class="card" href="lab7-pug-templates/preview.html">
+      <div class="card-top">
+        <div>
+          <div class="card-number">Lab 7</div>
+          <div class="card-title">Pug Templates</div>
+        </div>
+        <span class="status-badge server">Preview</span>
+      </div>
+      <p class="card-desc">Renderizado de HTML en el servidor usando el motor de plantillas Pug. Layouts reutilizables, variables dinámicas y estructuras de control en plantillas.</p>
+      <div class="card-tools">
+        <span class="tools-label">🔧 Herramientas</span>
+        <div class="tools-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Express</span>
+          <span class="tag">Pug</span>
+          <span class="tag">SSR</span>
+        </div>
+      </div>
+      <div class="card-objetivo">
+        <span class="objetivo-label">🎯 Objetivo del ejercicio</span>
+        <div class="objetivo-text">Entender el concepto de Server-Side Rendering: generar HTML dinámico en el servidor antes de enviarlo al cliente, usando datos reales en plantillas reutilizables.</div>
+      </div>
+      <div class="card-footer">
+        <div class="difficulty">
+          Dificultad
+          <div class="diff-dots">
+            <div class="diff-dot on"></div>
+            <div class="diff-dot on med"></div>
+            <div class="diff-dot on med"></div>
+          </div>
+        </div>
+        <span class="card-action">Ver preview <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg></span>
+      </div>
+    </a>
+
+    <a class="card" href="lab8-oop-models/preview.html">
+      <div class="card-top">
+        <div>
+          <div class="card-number">Lab 8</div>
+          <div class="card-title">OOP & Models</div>
+        </div>
+        <span class="status-badge server">Preview</span>
+      </div>
+      <p class="card-desc">Programación orientada a objetos en JavaScript. Clases, herencia, encapsulamiento y creación de modelos de datos para representar entidades del sistema.</p>
+      <div class="card-tools">
+        <span class="tools-label">🔧 Herramientas</span>
+        <div class="tools-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">JavaScript OOP</span>
+          <span class="tag">Classes</span>
+          <span class="tag">MySQL</span>
+        </div>
+      </div>
+      <div class="card-objetivo">
+        <span class="objetivo-label">🎯 Objetivo del ejercicio</span>
+        <div class="objetivo-text">Modelar entidades del mundo real como objetos con estado y comportamiento propio, sentando las bases de una arquitectura organizada y escalable.</div>
+      </div>
+      <div class="card-footer">
+        <div class="difficulty">
+          Dificultad
+          <div class="diff-dots">
+            <div class="diff-dot on"></div>
+            <div class="diff-dot on med"></div>
+            <div class="diff-dot on med"></div>
+          </div>
+        </div>
+        <span class="card-action">Ver preview <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg></span>
+      </div>
+    </a>
+
+    <a class="card" href="lab9-models-controllers/preview.html">
+      <div class="card-top">
+        <div>
+          <div class="card-number">Lab 9</div>
+          <div class="card-title">Models & Controllers</div>
+        </div>
+        <span class="status-badge server">Preview</span>
+      </div>
+      <p class="card-desc">Implementación del patrón MVC: separación de la lógica de negocio (Model), el control de flujo (Controller) y la presentación (View).</p>
+      <div class="card-tools">
+        <span class="tools-label">🔧 Herramientas</span>
+        <div class="tools-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Express</span>
+          <span class="tag">MVC Pattern</span>
+          <span class="tag">MySQL</span>
+        </div>
+      </div>
+      <div class="card-objetivo">
+        <span class="objetivo-label">🎯 Objetivo del ejercicio</span>
+        <div class="objetivo-text">Aplicar el patrón arquitectónico MVC para organizar el código de forma clara y mantenible, separando responsabilidades entre capas de la aplicación.</div>
+      </div>
+      <div class="card-footer">
+        <div class="difficulty">
+          Dificultad
+          <div class="diff-dots">
+            <div class="diff-dot on"></div>
+            <div class="diff-dot on hard"></div>
+            <div class="diff-dot on hard"></div>
+          </div>
+        </div>
+        <span class="card-action">Ver preview <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg></span>
+      </div>
+    </a>
+
+    <a class="card" href="lab10-user-input/preview.html">
+      <div class="card-top">
+        <div>
+          <div class="card-number">Lab 10</div>
+          <div class="card-title">User Input & Validation</div>
+        </div>
+        <span class="status-badge server">Preview</span>
+      </div>
+      <p class="card-desc">Manejo y validación de datos ingresados por el usuario desde el servidor. Sanitización de inputs, mensajes de error y retroalimentación al usuario.</p>
+      <div class="card-tools">
+        <span class="tools-label">🔧 Herramientas</span>
+        <div class="tools-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Express</span>
+          <span class="tag">express-validator</span>
+          <span class="tag">Pug</span>
+        </div>
+      </div>
+      <div class="card-objetivo">
+        <span class="objetivo-label">🎯 Objetivo del ejercicio</span>
+        <div class="objetivo-text">Garantizar que los datos enviados por el usuario sean válidos y seguros antes de procesarlos o guardarlos, evitando errores y vulnerabilidades en la aplicación.</div>
+      </div>
+      <div class="card-footer">
+        <div class="difficulty">
+          Dificultad
+          <div class="diff-dots">
+            <div class="diff-dot on"></div>
+            <div class="diff-dot on hard"></div>
+            <div class="diff-dot on hard"></div>
+          </div>
+        </div>
+        <span class="card-action">Ver preview <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg></span>
+      </div>
+    </a>
+
+    <a class="card" href="lab11-auth/preview.html">
+      <div class="card-top">
+        <div>
+          <div class="card-number">Lab 11</div>
+          <div class="card-title">Authentication</div>
+        </div>
+        <span class="status-badge server">Preview</span>
+      </div>
+      <p class="card-desc">Sistema completo de autenticación con registro, inicio de sesión, sesiones de usuario y rutas protegidas. Hash de contraseñas con bcrypt.</p>
+      <div class="card-tools">
+        <span class="tools-label">🔧 Herramientas</span>
+        <div class="tools-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Express</span>
+          <span class="tag">bcrypt</span>
+          <span class="tag">express-session</span>
+          <span class="tag">MySQL</span>
+        </div>
+      </div>
+      <div class="card-objetivo">
+        <span class="objetivo-label">🎯 Objetivo del ejercicio</span>
+        <div class="objetivo-text">Implementar un flujo de autenticación seguro: registro con contraseña encriptada, inicio de sesión con verificación, y protección de rutas para usuarios no autenticados.</div>
+      </div>
+      <div class="card-footer">
+        <div class="difficulty">
+          Dificultad
+          <div class="diff-dots">
+            <div class="diff-dot on"></div>
+            <div class="diff-dot on hard"></div>
+            <div class="diff-dot on hard"></div>
+          </div>
+        </div>
+        <span class="card-action">Ver preview <svg viewBox="0 0 16 16" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg></span>
+      </div>
+    </a>
 
   </div>
+
 </body>
 </html>

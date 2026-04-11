@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 9 – Models & Controllers · Preview</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0d1117; color: #e6edf3; min-height: 100vh; padding: 2rem 1.5rem; }
+    a.back { display: inline-flex; align-items: center; gap: 0.4rem; color: #58a6ff; text-decoration: none; font-size: 0.85rem; margin-bottom: 2rem; }
+    .header { margin-bottom: 2rem; }
+    .lab-num { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8b949e; }
+    h1 { font-size: 1.6rem; font-weight: 700; margin-top: 0.2rem; }
+    .note { margin-top: 0.5rem; font-size: 0.82rem; color: #8b949e; background: #161b22; border: 1px solid #30363d; border-left: 3px solid #d29922; padding: 0.6rem 0.9rem; border-radius: 0 6px 6px 0; display: inline-block; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 900px; margin-top: 1.5rem; }
+    @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+    .panel { background: #1e1e2e; border: 1px solid #313244; border-radius: 10px; overflow: hidden; }
+    .panel-header { background: #181825; padding: 0.6rem 1rem; font-size: 0.75rem; color: #6c7086; display: flex; align-items: center; gap: 0.5rem; }
+    .panel-header strong { color: #cdd6f4; }
+    .panel-body { padding: 1rem; font-family: 'SF Mono', monospace; font-size: 0.79rem; line-height: 1.8; color: #cdd6f4; }
+    .kw { color: #cba6f7; }
+    .fn { color: #89b4fa; }
+    .str { color: #a6e3a1; }
+    .cm { color: #585b70; }
+    .cn { color: #89dceb; }
+    .i1 { margin-left: 16px; }
+    .i2 { margin-left: 32px; }
+
+    /* MVC diagram */
+    .mvc-panel { background: #161b22; border: 1px solid #30363d; }
+    .mvc-panel .panel-header { background: #21262d; color: #8b949e; }
+    .mvc-body { padding: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap; }
+    .mvc-box { border-radius: 10px; padding: 0.8rem 1.2rem; min-width: 130px; text-align: center; }
+    .mvc-box .mvc-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+    .mvc-box .mvc-name { font-size: 1rem; font-weight: 700; }
+    .mvc-box .mvc-files { font-size: 0.72rem; color: #8b949e; margin-top: 0.4rem; font-family: monospace; }
+    .m-box { background: #1a3a2a; border: 2px solid #3fb950; }
+    .m-box .mvc-label { color: #3fb950; }
+    .m-box .mvc-name { color: #3fb950; }
+    .v-box { background: #1a2a3a; border: 2px solid #58a6ff; }
+    .v-box .mvc-label { color: #58a6ff; }
+    .v-box .mvc-name { color: #58a6ff; }
+    .c-box { background: #3a2a1a; border: 2px solid #d29922; }
+    .c-box .mvc-label { color: #d29922; }
+    .c-box .mvc-name { color: #d29922; }
+    .mvc-arrow { font-size: 1.5rem; color: #8b949e; padding: 0 0.5rem; }
+  </style>
+</head>
+<body>
+  <a class="back" href="../index.html">← Volver al índice</a>
+  <div class="header">
+    <div class="lab-num">Lab 9 · Preview</div>
+    <h1>Models & Controllers</h1>
+    <span class="note">⚠ Este lab requiere Node.js. Las imágenes muestran cómo se vería ejecutándose localmente.</span>
+  </div>
+
+  <div class="cols">
+
+    <!-- Routes -->
+    <div class="panel">
+      <div class="panel-header">📄 <strong>routes/users.js</strong></div>
+      <div class="panel-body">
+        <div><span class="kw">const</span> express = require(<span class="str">'express'</span>);</div>
+        <div><span class="kw">const</span> router = express.<span class="fn">Router</span>();</div>
+        <div><span class="kw">const</span> ctrl = require(<span class="str">'../controllers/userCtrl'</span>);</div>
+        <div>&nbsp;</div>
+        <div>router.<span class="fn">get</span>(<span class="str">'/'</span>,       ctrl.<span class="fn">index</span>);</div>
+        <div>router.<span class="fn">get</span>(<span class="str">'/:id'</span>,    ctrl.<span class="fn">show</span>);</div>
+        <div>router.<span class="fn">post</span>(<span class="str">'/'</span>,      ctrl.<span class="fn">create</span>);</div>
+        <div>router.<span class="fn">put</span>(<span class="str">'/:id'</span>,   ctrl.<span class="fn">update</span>);</div>
+        <div>router.<span class="fn">delete</span>(<span class="str">'/:id'</span>, ctrl.<span class="fn">destroy</span>);</div>
+        <div>&nbsp;</div>
+        <div>module.exports = router;</div>
+      </div>
+    </div>
+
+    <!-- Controller -->
+    <div class="panel">
+      <div class="panel-header">📄 <strong>controllers/userCtrl.js</strong></div>
+      <div class="panel-body">
+        <div><span class="kw">const</span> <span class="cn">User</span> = require(<span class="str">'../models/User'</span>);</div>
+        <div>&nbsp;</div>
+        <div>exports.<span class="fn">index</span> = <span class="kw">async</span> (req, res) => {</div>
+        <div class="i1"><span class="kw">const</span> users = <span class="kw">await</span> <span class="cn">User</span>.<span class="fn">findAll</span>();</div>
+        <div class="i1">res.<span class="fn">render</span>(<span class="str">'users/index'</span>, { users });</div>
+        <div>};</div>
+        <div>&nbsp;</div>
+        <div>exports.<span class="fn">create</span> = <span class="kw">async</span> (req, res) => {</div>
+        <div class="i1"><span class="kw">const</span> user = <span class="kw">new</span> <span class="cn">User</span>(req.body);</div>
+        <div class="i1"><span class="kw">await</span> user.<span class="fn">save</span>();</div>
+        <div class="i1">res.<span class="fn">redirect</span>(<span class="str">'/users'</span>);</div>
+        <div>};</div>
+      </div>
+    </div>
+
+    <!-- MVC Diagram -->
+    <div class="panel mvc-panel" style="grid-column: span 2;">
+      <div class="panel-header">📊 <strong>Arquitectura MVC</strong></div>
+      <div class="mvc-body">
+        <div class="mvc-box v-box">
+          <div class="mvc-label">View</div>
+          <div class="mvc-name">Pug</div>
+          <div class="mvc-files">views/users/index.pug<br>views/users/show.pug</div>
+        </div>
+        <div class="mvc-arrow">⟷</div>
+        <div class="mvc-box c-box">
+          <div class="mvc-label">Controller</div>
+          <div class="mvc-name">Logic</div>
+          <div class="mvc-files">controllers/userCtrl.js<br>routes/users.js</div>
+        </div>
+        <div class="mvc-arrow">⟷</div>
+        <div class="mvc-box m-box">
+          <div class="mvc-label">Model</div>
+          <div class="mvc-name">Data</div>
+          <div class="mvc-files">models/User.js<br>db/connection.js</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
