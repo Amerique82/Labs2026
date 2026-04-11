@@ -1,5 +1,7 @@
 # Labs2026 — Software Development 2
 
+https://amerique82.github.io/Labs2026/
+
 A compendium of weekly lab exercises from the **Software Development 2** module at the University of Roehampton. Each folder corresponds to a lab completed week by week throughout the course, covering the full stack of modern web development.
 
 ---
